@@ -120,6 +120,9 @@ button.btn-default {
 	border-bottom: 0;
 	border-radius: 0;
 }
+button.addPreds, button.addSuccs {
+	height: 23px !important;
+}
 .list-group-item {
 	padding: 3px !important;
 	border: 0 !important;

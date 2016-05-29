@@ -238,29 +238,79 @@ class Project
 		$this->loadListeTaches();
 	}
 
-	public function removePredecesseur($idTache, $idPredecesseur) {
-		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idPredecesseur AND idTache = :idTache");
-		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
+	public function updatePredecesseurs($idTache, $listePredecesseurs) {
+		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idTache = :idTache");
 		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
 		$q->execute();
 
-		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idTache AND idTache = :idPredecesseur");
-		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
+		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idTache");
 		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
 		$q->execute();
+
+		foreach($listePredecesseurs as $nvpred) {
+			$q = $this->bdd->prepare("INSERT INTO predecesseur (idPredecesseur, idTache)
+										VALUES (:idPredecesseur, :idTache)");
+			$q->bindParam(':idPredecesseur', $nvpred, PDO::PARAM_INT);
+			$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+			$q->execute();
+
+			$q = $this->bdd->prepare("INSERT INTO successeur (idSuccesseur, idTache)
+										VALUES (:idSuccesseur, :idTache)");
+			$q->bindParam(':idSuccesseur', $idTache, PDO::PARAM_INT);
+			$q->bindParam(':idTache', $nvpred, PDO::PARAM_INT);
+			$q->execute();
+		}
 	}
 
-	public function removeSuccesseur($idTache, $idSuccesseur) {
-		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idSuccesseur AND idTache = :idTache");
-		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
+	public function updateSuccesseurs($idTache, $listeSuccesseurs) {
+		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idTache = :idTache");
 		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
 		$q->execute();
 
-		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idTache AND idTache = :idSuccesseur");
-		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
+		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idTache");
 		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
 		$q->execute();
+
+		foreach($listeSuccesseurs as $nvsucc) {
+			$q = $this->bdd->prepare("INSERT INTO successeur (idSuccesseur, idTache)
+										VALUES (:idSuccesseur, :idTache)");
+			$q->bindParam(':idSuccesseur', $nvsucc, PDO::PARAM_INT);
+			$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+			$q->execute();
+
+			$q = $this->bdd->prepare("INSERT INTO predecesseur (idPredecesseur, idTache)
+										VALUES (:idPredecesseur, :idTache)");
+			$q->bindParam(':idPredecesseur', $idTache, PDO::PARAM_INT);
+			$q->bindParam(':idTache', $nvsucc, PDO::PARAM_INT);
+			$q->execute();
+		}
 	}
+
+
+
+//	public function removePredecesseur($idTache, $idPredecesseur) {
+//		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idPredecesseur AND idTache = :idTache");
+//		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
+//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+//		$q->execute();
+//
+//		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idTache AND idTache = :idPredecesseur");
+//		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
+//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+//		$q->execute();
+//	}
+//
+//	public function removeSuccesseur($idTache, $idSuccesseur) {
+//		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idSuccesseur AND idTache = :idTache");
+//		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
+//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+//		$q->execute();
+//
+//		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idTache AND idTache = :idSuccesseur");
+//		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
+//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
+//		$q->execute();
+//	}
 
 	public function updateTable($table) {
 		$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

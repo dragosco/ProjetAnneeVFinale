@@ -62,15 +62,7 @@ var extreme = new joint.shapes.basic.Circle( {
         }
     }
 });
-var start = extreme.clone();
-    start.position(10, bounds.get('size').height/2-50);
-    start.attr('text/text', 'Start'); //start.attr({text: {text: 'Start'}});
-var end = extreme.clone();
-    end.position(bounds.get('size').width-110, bounds.get('size').height/2-50);
-    end.attr('text/text', 'End');
-graph.addCells([start, end]);
-bounds.embed(start);
-bounds.embed(end);
+bounds.embed(extreme);
 
 /*************************
         LIENS

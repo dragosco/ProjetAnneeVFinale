@@ -4,14 +4,14 @@ $project = Project::getInstance();
 
 $data = array();
 foreach ($project->listeTaches as $task) {
-  array_push($data, array('nom' => $task->nom,
-                              /*'duree' => $donnees['duree'],*/
-                              'precedent1' => $task->precedent1,
-                              'precedent2' => $task->precedent2,
-                              'suivant1' => $task->suivant1,
-                              'suivant2' => $task->suivant2,
-      
-                            ));
+    $predecesseurs = [];
+    foreach ($task->predecesseurs as $pred) {
+        $predecesseurs[] = $pred->nom;
+    }
+    array_push($data, array('id' => $task->id,
+                          'nom' => $task->nom,
+                          'predecesseurs' => $predecesseurs
+                          ));
 }
 
 header('Content-Type: application/json');

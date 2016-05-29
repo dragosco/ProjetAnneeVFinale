@@ -12,11 +12,11 @@ if(isset($_POST['id'])) {
     $project->updateTask($_POST['id'], $_POST['nvnom']);
 }
 
-if(isset($_POST['idPredecesseur'])) {
-    $project->removePredecesseur($_POST['idTache'], $_POST['idPredecesseur']);
+if(isset($_POST['listePredecesseurs'])) {
+    $project->updatePredecesseurs($_POST['idTache'], array_unique(json_decode($_POST['listePredecesseurs'], true)));
 }
-if(isset($_POST['idSuccesseur'])) {
-    $project->removeSuccesseur($_POST['idTache'], $_POST['idSuccesseur']);
+if(isset($_POST['listeSuccesseurs'])) {
+    $project->updateSuccesseurs($_POST['idTache'], array_unique(json_decode($_POST['listeSuccesseurs'], true)));
 }
 
 header("Location: tasklist.php");

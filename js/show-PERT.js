@@ -2,50 +2,55 @@ $(document).ready(function() {
     $('#waitForDiagram').show();
     $.ajax({
         type: 'GET',
-        url: "/ProjetAnnee/json/tasklist_json.php",
+        url: "/ProjetAnneeVFinale/json/tasklist_json.php",
         dataType: 'json',
         success: function (data) {
             $('#waitForDiagram').hide();
             data.forEach(function (item) {
-                var task = item.nom;
+                var id = item.id;
+                var nom = item.nom;
 
-                var taskRect = rect.clone();
-                    taskRect.attr('text/text', task);
-                if(task.length > 12) {
-                    taskRect.resize(task.length*10, 60);
+
+                if(id === "1") {
+
+                    var start = extreme.clone();
+                        start.position(10, bounds.get('size').height/2-50);
+                        start.attr('text/text', nom);
+                    graph.addCell(start);
+
+                } else if(id === "2") {
+
+                    var end = extreme.clone();
+                        end.position(bounds.get('size').width-110, bounds.get('size').height/2-50);
+                        end.attr('text/text', nom);
+                    graph.addCell(end);
+
+                } else {
+
+                    var taskRect = rect.clone();
+                        taskRect.attr('text/text', nom);
+                    if(nom.length > 12) {
+                        taskRect.resize(nom.length*10, 60);
+                    }
+                    graph.addCell(taskRect);
                 }
-                graph.addCell(taskRect);
+                
             });
 
             data.forEach(function (item) {
 
-                var task = getCellByText(item.nom);
-                var prec1 = getCellByText(item.precedent1);
-                var prec2 = getCellByText(item.precedent2);
-                var suiv1 = getCellByText(item.suivant1);
-                var suiv2 = getCellByText(item.suivant2);
+                var tache = getCellByText(item.nom);
+                var predecesseurs = item.predecesseurs;
+                if(typeof predecesseurs !== 'undefined' && predecesseurs.length > 0) {
+                    predecesseurs.forEach(function (pred) {
 
-
-                var linkLeft1 = lien.clone();
-                    linkLeft1.set('source', { id: prec1.id });
-                    linkLeft1.set('target', { id: task.id });
-                graph.addCell(linkLeft1);
-                bounds.embed(linkLeft1);
-
-                if (item.precedent2 !== "") {
-                    var linkLeft2 = lien.clone();
-                        linkLeft2.set('source', { id: prec2.id });
-                        linkLeft2.set('target', { id: task.id });
-                    graph.addCell(linkLeft2);
-                    bounds.embed(linkLeft2);
-                }
-
-                if (item.suivant1 === "End" || item.suivant2 === "End") {
-                    var linkRight = lien.clone();
-                        linkRight.set('source', { id: task.id });
-                        linkRight.set('target', { id: end.id });
-                    graph.addCell(linkRight);
-                    bounds.embed(linkRight);
+                        var predTache = getCellByText(pred);
+                        var link = lien.clone();
+                        link.set('source', { id: predTache.id });
+                        link.set('target', { id: tache.id });
+                        graph.addCell(link);
+                        bounds.embed(link);
+                    });
                 }
             });
 
@@ -71,3 +76,4 @@ $(document).ready(function() {
     //     });
     // });
 });
+

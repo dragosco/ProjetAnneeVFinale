@@ -17,16 +17,16 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                    <label for="leftTaskSelector">Predecessors</label>
-                                    <select class="form-control" id="leftTaskSelector1" name="predecesseurs[]" multiple>
-                                        <?php foreach ($project->listeTaches as $task) { if($task->nom !== "End") {?>
-                                            <option value="<?php echo $task->id; } ?>"><?php echo $task->nom ?></option>
-                                        <?php }?>
-                                    </select>
+                                <label for="leftTaskSelector">Predecessors</label>
+                                <select class="form-control " id="leftTaskSelector" name="predecesseurs[]" multiple>
+                                    <?php foreach ($project->listeTaches as $task) { if($task->nom !== "End") {?>
+                                        <option value="<?php echo $task->id; } ?>"><?php echo $task->nom ?></option>
+                                    <?php }?>
+                                </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="rightTaskSelector">Successors</label>
-                                <select class="form-control" id="rightTaskSelector1" name="successeurs[]" multiple>
+                                <select class="form-control" id="rightTaskSelector" name="successeurs[]" multiple>
                                     <?php foreach ($project->listeTaches as $task) { if($task->nom !== "Start") { ?>
                                         <option value="<?php echo $task->id; } ?>"><?php echo $task->nom ?></option>
                                     <?php }?>

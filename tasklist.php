@@ -110,63 +110,61 @@ $project = Project::getInstance();
                                                             <div class="form-group col-md-12">
                                                                 <label for="nm">Change name</label>
                                                                 <input type="text" class="form-control" id="nm" name="nvnom" value="<?php echo $task->nom; ?>" />
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="selectorpreds">Add predecessor</label>
-                                                                <br>
-                                                                <select id="selectorpreds">
-                                                                    <option value="0" disabled selected>none</option>
-                                                                    <?php foreach ($project->listeTaches as $t) { ?>
-                                                                        <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-
-                                                                <br><br>
-                                                                <label for="listepreds">Predecessors</label>
-
-                                                                <ul class="list-group" id="listepreds">
-                                                                <p class="message predecesseur"></p>
-                                                                <?php
-                                                                foreach($task->predecesseurs as $pred) { ?>
-                                                                    <li class="list-group-item predecesseur" id="<?php echo $task->id; ?>" value="<?php echo $pred->id; ?>"><span class="glyphicon glyphicon-remove predecesseur" style="color:darkred; cursor: pointer;"></span><?php echo $pred->nom; } ?></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="selectorsuccs">Add successor</label>
-                                                                <br>
-                                                                <select id="selectorsuccs">
-                                                                    <option value="0" disabled selected>none</option>
-                                                                    <?php foreach ($project->listeTaches as $t) { ?>
-                                                                        <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-
-                                                                <br><br>
-                                                                <label for="listesuccs">Successors</label>
-                                                                <p class="message successeur"></p>
-                                                                <ul class="list-group" id="listesuccs">
-                                                                <?php
-                                                                foreach($task->successeurs as $succ) { ?>
-                                                                    <li class="list-group-item successeur" id="<?php echo $task->id; ?>" value="<?php echo $succ->id; ?>"><span class="glyphicon glyphicon-remove successeur" style="color:darkred; cursor: pointer;"></span><?php echo $succ->nom; } ?></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group">
-                                                                <label for="nvloi">Change associated distribution</label>
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group">
-                                                                <button type="submit" id="submitTaskChanges" class="btn btn-success pull-right">Update</button>
+                                                                <input type="hidden" name="id" value="<?php echo $task->id; ?>" />
+                                                                <button type="submit" id="submitTaskChanges" class="btn btn-info pull-right">Update name</button>
                                                             </div>
                                                         </div>
                                                     </form>
+                                                    <div class="row tache">
+                                                        <div class="col-md-12">
+                                                            <p class="message" style="color:darkred;">The predecessor and successor of a task must be different</p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="selectorpreds">Add predecessor</label>
+                                                            <br>
+                                                            <select class="selectorpreds">
+                                                                <?php foreach ($project->listeTaches as $t) { ?>
+                                                                    <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+
+                                                            <br>
+                                                            <label for="listepreds">Predecessors</label>
+                                                            <ul class="list-group predecesseur" id="listepreds">
+                                                            <?php
+                                                            foreach($task->predecesseurs as $pred) { ?>
+                                                                <li class="list-group-item predecesseur" value="<?php echo $pred->id; ?>"><span class="glyphicon glyphicon-remove predecesseur" style="color:darkred; cursor: pointer;"></span><?php echo $pred->nom; } ?></li>
+                                                            </ul>
+
+                                                            <button class="submitNvxPreds btn btn-info pull-right" id="<?php echo $task->id; ?>" >Update predecessors</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="selectorsuccs">Add successor</label>
+                                                            <br>
+                                                            <select class="selectorsuccs">
+                                                                <?php foreach ($project->listeTaches as $t) { ?>
+                                                                    <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+
+                                                            <br>
+                                                            <label for="listesuccs">Successors</label>
+                                                            <ul class="list-group successeur" id="listesuccs">
+                                                            <?php
+                                                            foreach($task->successeurs as $succ) { ?>
+                                                                <li class="list-group-item successeur" id="<?php echo $task->id; ?>" value="<?php echo $succ->id; ?>"><span class="glyphicon glyphicon-remove successeur" style="color:darkred; cursor: pointer;"></span><?php echo $succ->nom; } ?></li>
+                                                            </ul>
+
+                                                            <button class="submitNvxSuccs btn btn-info pull-right" id="<?php echo $task->id; ?>" >Update successors</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label for="nvloi">Change associated distribution</label>
+
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div><!-- /.modal-dialog -->
