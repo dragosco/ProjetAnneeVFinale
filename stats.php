@@ -48,6 +48,7 @@ $project = Project::getInstance();
 		        <div class="panel-body">
 							<?php require 'chargeGlobale.php'; ?>
 							<?php require 'coutGlobal.php'; ?>
+							<?php require 'dureeGlobale.php'; ?>
 							<?php require 'margeFinanciere.php'; ?>
 					 	</div>
 		      </div>

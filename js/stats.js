@@ -1,31 +1,24 @@
 $(document).ready(function() {
   $('#contenuChargeGlobale').hide();
   $('#contenuCoutGlobal').hide();
+  $('#contenuDureeGlobale').hide();
   $('#contenu_Marge').hide();
 
   $('#titreChargeGlobale').on('click', function(event) {
     $('#contenuChargeGlobale').slideToggle(); //'show'
     // $('#contenuChargeGlobale').toggle();
-    // $('#contenuCoutGlobal').toggle();
   });
   $('#titreCoutGlobal').on('click', function(event) {
-    $('#contenuCoutGlobal').slideToggle(); //'show'
-    // $('#contenuChargeGlobale').toggle();
+    $('#contenuCoutGlobal').slideToggle();
+  });
+  $('#titreDureeGlobale').on('click', function(event) {
+    $('#contenuDureeGlobale').slideToggle();
   });
   $('#titre_Marge').on('click', function(event) {
-    $('#contenu_Marge').slideToggle(); //'show'
-    // $('#contenuChargeGlobale').toggle();
+    $('#contenu_Marge').slideToggle();
   });
   $('#waitForGraph').hide();
 });
-
-// $('')
-
-// jQuery(document).ready(function(){
-//     jQuery('#hideshow').live('click', function(event) {
-//          jQuery('#content').toggle('show');
-//     });
-// });
 
 function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, divId) {
   var parametres = {typeSimulateur: typeSimulateur, iteration: iteration, intervalle: intervalle,
@@ -36,6 +29,8 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
     nomChart = 'Simulation de charge globale';
   } else if(typeSimulateur=='coutGlobal') {
     nomChart = 'Simulation de coût global';
+  } else if(typeSimulateur=='dureeGlobale') {
+    nomChart = 'Simulation de durée globale';
   } else if(typeSimulateur=='margeFinanciere') {
     nomChart = 'Simulation de marge financière';
   }
@@ -43,7 +38,7 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
 
   $.ajax({
       type: 'POST',
-      url: "/ProjetAnnee/json/calculStat_json.php", //?iteration="+iteration+"&intervale="+intervale,
+      url: "/ProjetAnneeVFinale/json/calculStat_json.php", //?iteration="+iteration+"&intervale="+intervale,
       dataType: 'json',
       data: parametres,
       // beforeSend: function() {
@@ -88,7 +83,10 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
               data: yAxis
           }]
         });
-      }
+      }//,
+      // error: function(XMLHttpRequest, textStatus, errorThrown) {
+      //               alert("Status: " + textStatus); alert("Error: " + errorThrown);
+      //           }
   });
 };
 
@@ -101,13 +99,15 @@ function estimateProbability(typeSimulateur, iteration, intervalle, probabilite,
     outputId += '_Charge';
   } else if(typeSimulateur=='coutGlobal') {
     outputId += '_Cout';
+  } else if(typeSimulateur=='dureeGlobale') {
+    outputId += '_Duree';
   } else if(typeSimulateur=='margeFinanciere') {
     outputId += '_Marge';
   }
 
   $.ajax({
     type: 'POST',
-    url: "/ProjetAnnee/json/estimateProbabilityGivenCharge_json.php", //?iteration="+iteration+"&intervale="+intervale+"&charge="+charge,
+    url: "/ProjetAnneeVFinale/json/estimateProbabilityGivenCharge_json.php", //?iteration="+iteration+"&intervale="+intervale+"&charge="+charge,
     dataType: 'json',
     data: parametres,
     success: function (data) {
@@ -126,13 +126,15 @@ function estimateCharge(typeSimulateur, iteration, intervalle, probabilite, char
     outputId += '_Charge';
   } else if(typeSimulateur=='coutGlobal') {
     outputId += '_Cout';
+  } else if(typeSimulateur=='dureeGlobale') {
+    outputId += '_Duree';
   } else if(typeSimulateur=='margeFinanciere') {
     outputId += '_Marge';
   }
 
   $.ajax({
     type: 'POST',
-    url: "/ProjetAnnee/json/estimateChargeGivenProbability_json.php", //?iteration="+iteration+"&intervale="+intervale+"&probabilite="+probabilite,
+    url: "/ProjetAnneeVFinale/json/estimateChargeGivenProbability_json.php", //?iteration="+iteration+"&intervale="+intervale+"&probabilite="+probabilite,
     dataType: 'json',
     data: parametres,
     success: function (data) {

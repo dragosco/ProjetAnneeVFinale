@@ -77,6 +77,8 @@ class Project
 				$simulateur = new SimulationChargeGlobale($donnees['typeSimulateur'], $donnees['nbEchantillons'], $donnees['largeurIntervalle'], $this);
 			} else if ($donnees['typeSimulateur'] == SimulateurEnum::CoutGlobal) {
 				$simulateur = new SimulationCoutGlobal($donnees['typeSimulateur'], $donnees['nbEchantillons'], $donnees['largeurIntervalle'], $this);
+			} else if ($donnees['typeSimulateur'] == SimulateurEnum::DureeGlobale) {
+				$simulateur = new SimulationDureeGlobale($donnees['typeSimulateur'], $donnees['nbEchantillons'], $donnees['largeurIntervalle'], $this);
 			} else if ($donnees['typeSimulateur'] == SimulateurEnum::MargeFinanciere) {
 				$simulateur = new SimulationMargeFinanciere($donnees['typeSimulateur'], $donnees['nbEchantillons'], $donnees['largeurIntervalle'], $this);
 			}
@@ -95,7 +97,7 @@ class Project
 		while ($donnees = $reponse->fetch())
 		{
 			$ressource = new Ressource($donnees['id'], $donnees['nom'], $donnees['cout']); //, null, null
-			
+
 			array_push($this->listeRessources, $ressource);
 		}
 	}
