@@ -5,11 +5,8 @@ session_start();
 $email = $_GET['email'];
 $pass = $_GET['pass'];
 
-
-$bdd = new PDO('mysql:host=localhost;dbname=m1bdv2;charset=utf8', 'root', '');
-
 // Vérification des identifiants
-$this->bdd = getBdd();
+$bdd = getBdd();
 $req = $bdd->prepare('SELECT email FROM membre WHERE email = :email AND pass = :pass');
 $req->execute(array(
     'email' => $email,
