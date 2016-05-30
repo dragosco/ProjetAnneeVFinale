@@ -168,12 +168,12 @@ $project = Project::getInstance();
                                                             <div class="form-group col-md-12">
                                                                 <label for="nvloi">Change associated distribution</label>
                                                                 <select name="nvloi">
-                                                                    <option disabled selected>Choose new distribution...</option>
-                                                                    <option value="uniforme">Uniform distribution</option>
-                                                                    <option value="beta">Beta distribution</option>
-                                                                    <option value="triangulaire">Triangular distribution</option>
-                                                                    <option value="normale">Normal/Gaussian distribution</option>
-                                                                    <option value="sansLoi">Constant</option>
+<!--                                                                    <option value="--><?php //echo get_class($task->loi); ?><!--">--><?php //echo get_class($task->loi); ?><!--</option>-->
+                                                                    <option value="uniforme" <?php if(get_class($task->loi) == 'LoiRand') { ?> selected <?php } ?> >Uniform distribution</option>
+                                                                    <option value="beta" <?php if(get_class($task->loi) == 'LoiBeta') { ?> selected <?php } ?> >Beta distribution</option>
+                                                                    <option value="triangulaire" <?php if(get_class($task->loi) == 'LoiTriangulaire') { ?> selected <?php } ?> >Triangular distribution</option>
+                                                                    <option value="normale" <?php if(get_class($task->loi) == 'LoiNormale') { ?> selected <?php } ?> >Normal/Gaussian distribution</option>
+                                                                    <option value="sansLoi" <?php if(get_class($task->loi) == 'SansLoi') { ?> selected <?php } ?> >Constant</option>
                                                                 </select>
                                                             </div>
                                                             <br>

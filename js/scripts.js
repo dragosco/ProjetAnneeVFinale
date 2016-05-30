@@ -123,7 +123,10 @@ $(document).ready(function() {
     });
 
 
-    $('.params').hide();
+    $('form.updateLoi').find('select').find('option:not(:selected)').each(function() {
+        $('div.' + $(this).val()).hide();
+    });
+
     $('form.updateLoi').find('select').change(function() {
         var loiSelect = $(this).find('option:selected').val();
         var params = $(this).parent().parent();
