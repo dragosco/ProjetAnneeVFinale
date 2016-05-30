@@ -18,8 +18,7 @@ require("Ressource.php");
 class Task
 {
 	var $id;
-	var $nom = "";
-	//var $duree;
+	var $nom;
 	var $projet;
 	var $predecesseurs;
 	var $successeurs;
@@ -28,11 +27,10 @@ class Task
 
 	var $bdd;
 
-	function __construct($id, $nom, /*, $duree*/ $projet)
+	function __construct($id, $nom, $projet)
 	{
 		$this->id = $id;
 		$this->nom = $nom;
-		//$this->duree = $duree;
 		$this->predecesseurs = array();
 		$this->successeurs = array();
 		$this->projet = $projet;
@@ -41,34 +39,17 @@ class Task
 
 	public function loadLoi()
 	{
-		//if($this->duree == 0) {
-
 		$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$q = $this->bdd->prepare("SELECT l.* FROM tache t, loi l WHERE t.id = l.idTache AND t.id = ?");
 		$q->execute(array($this->id));
 		$loi = $q->fetch(PDO::FETCH_ASSOC);
 
-		// echo "loi " . $loi['nom'] . " ";
-		// 		echo "loi id " . $loi['id'] . " ";
-
-		// $reponse = $this->bdd->query('SELECT l.* FROM tache t, loi l where t.id = l.idTache');
-		// $loi = $reponse->fetch();
-		// echo "loi id " . $loi['id'];
-		// echo "loi id tache " . $loi['idTache'];
-		// echo "loi " . $loi['nom'];
 		if($loi['nom'] == LoiEnum::Beta) {
 			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$q = $this->bdd->prepare("SELECT b.* FROM loi l, loiBeta b where b.id = ?");
 			$q->execute(array($loi['id']));
 			$beta = $q->fetch(PDO::FETCH_ASSOC);
 
-			// echo '$loi valeurMin ' . $loi['valeurMin'] . ' ';
-			// 			echo '$loi valeurMax ' . $loi['valeurMax'] . ' ';
-			// 						echo 'beta w ' . $beta['w'] . ' ';
-			// 									echo 'beta v ' . $beta['v'] . ' ';
-
-			// $reponse = $this->bdd->query('SELECT b.* FROM loi l, loiBeta b where l.id = b.id');
-			// $beta = $reponse->fetch();
 			$this->loi = new LoiBeta($loi['valeurMin'], $loi['valeurMax'], $beta['v'], $beta['w']);
 		} else if($loi['nom'] == LoiEnum::Triangulaire) {
 			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -76,8 +57,6 @@ class Task
 			$q->execute(array($loi['id']));
 			$triangulaire = $q->fetch(PDO::FETCH_ASSOC);
 
-			// $reponse = $this->bdd->query('SELECT t.* FROM loi l, loiTriangulaire t where l.id = t.id');
-			// $triangulaire = $reponse->fetch();
 			$this->loi = new LoiTriangulaire($loi['valeurMin'], $loi['valeurMax'], $triangulaire['c']);
 		} else if($loi['nom'] == LoiEnum::Normale) {
 			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -85,29 +64,15 @@ class Task
 			$q->execute(array($loi['id']));
 			$normale = $q->fetch(PDO::FETCH_ASSOC);
 
-			// $reponse = $this->bdd->query('SELECT n.* FROM loi l, loiNormale n where l.id = n.id');
-			// $normale = $reponse->fetch();
 			$this->loi = new LoiNormaleTronquee($loi['valeurMin'], $loi['valeurMax'], $normale['mu'], $normale['sigma']);
 		} else if($loi['nom'] == LoiEnum::Uniforme) {
 			$this->loi = new LoiRand($loi['valeurMin'], $loi['valeurMax']);
 		} else if($loi['nom'] == LoiEnum::SansLoi) {
 			$this->loi = new SansLoi($loi['valeurMax']);
 		}
-		//}
-		// $this->loi = new L
-		// while ()
-		// {
-			//array_push($this->listeTaches, new Task($donnees['nom'], self)); //, null, null
-		// }
-
-		//$this->loi = $loi;
 	}
 
 	public function loadRessource() {
-
-		// $reponse = $this->bdd->query('SELECT r.* FROM tache t, ressource r WHERE t.idRessource = r.id AND');
-		// $ressource = $reponse->fetch();
-
 		$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$q = $this->bdd->prepare("SELECT r.* FROM tache t, ressource r WHERE t.idRessource = r.id AND t.id = ?");
 		$q->execute(array($this->id));

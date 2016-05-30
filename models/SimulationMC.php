@@ -1,8 +1,6 @@
 <?php
-//require("lois/LoiProbabilite.php");
 require("ResultatSimulation.php");
 require("SimulateurEnum.php");
-// require("Project.php");
 /*
  * Monte Carlo
  *
@@ -18,53 +16,14 @@ class SimulationMC
 	var $projet;
 	var $resultatCalcul;
 
-	// public static function constructFull($typeSimulateur, $nbEchantillons, $largeurIntervalle, $probabiliteEntree, $chargeEntree, $projet) //
-	// {
-	// 	$simulation = new SimulationMC();
-	//
-	// 	$simulation->typeSimulateur = $typeSimulateur;
-	// 	$simulation->nbEchantillons = $nbEchantillons;
-	// 	$simulation->largeurIntervalle = $largeurIntervalle;
-	// 	$simulation->probabiliteEntree = $probabiliteEntree;
-	// 	$simulation->chargeEntree = $chargeEntree;
-	//
-	// 	$simulation->projet = $projet;
-	// 	$simulation->resultatCalcul = NULL;
-	//
-	// 	return $simulation;
-	// }
-	//
-	// public static function constructBasic($typeSimulateur, $nbEchantillons, $largeurIntervalle, $projet)
-	// {
-	// 	$simulation = new SimulationMC();
-	//
-	// 	$simulation->typeSimulateur = $typeSimulateur;
-	// 	$simulation->nbEchantillons = $nbEchantillons;
-	// 	$simulation->largeurIntervalle = $largeurIntervalle;
-	// 	// $this->chargeEntree = $chargeEntree;
-	// 	// $this->probabiliteEntree = $probabiliteEntree;
-	//
-	// 	$simulation->projet = $projet;
-	// 	$simulation->resultatCalcul = NULL;
-	//
-	// 	return $simulation;
-	// }
-
-	// function calculate() {}
-	function __construct($typeSimulateur, $nbEchantillons, $largeurIntervalle, $projet) // , $chargeEntree, $probabiliteEntree
+	function __construct($typeSimulateur, $nbEchantillons, $largeurIntervalle, $projet)
 	{
 		$this->typeSimulateur = $typeSimulateur;
 		$this->nbEchantillons = $nbEchantillons;
 		$this->largeurIntervalle = $largeurIntervalle;
-		// $this->chargeEntree = $chargeEntree;
-		// $this->probabiliteEntree = $probabiliteEntree;
 
 		$this->projet = $projet;
 		$this->resultatCalcul = NULL;
-	}
-
-	function updateParameters() {
-
 	}
 
   function estimateProbabilityGivenCharge($charge) {
@@ -73,9 +32,6 @@ class SimulationMC
     if(is_null($this->resultatCalcul)) {
       $this->calculate();
     }
-
-		//verifier si $charge == $this->chargeEntree
-		//sinon update bd
 
     return $this->resultatCalcul->estimateProbabilityGivenCharge($charge, $this->largeurIntervalle);
   }
@@ -86,9 +42,6 @@ class SimulationMC
     if(is_null($this->resultatCalcul)) {
       $this->calculate();
     }
-
-		//verifier si $probability == $this->probability
-		//sinon update bd
 
     return $this->resultatCalcul->estimateChargeGivenProbability($probability, $this->largeurIntervalle);
   }

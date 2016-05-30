@@ -1,11 +1,9 @@
 <?php
 require("Task.php");
-//require("SimulateurEnum.php");
 require("SimulationChargeGlobale.php");
 require("SimulationCoutGlobal.php");
 require("SimulationDureeGlobale.php");
 require("SimulationMargeFinanciere.php");
-//require("cnx.php");
 /*
  * Project
  *
@@ -20,13 +18,12 @@ class Project
 	var $listeTaches;
 	var $listeRessources;
 	var $listeParallelPaths;
-	//var $simulationMC;
 	var $listeSimulateurs;
 	var $bdd;
 
 	private static $_instance = null;
 
-	function __construct($id, $nom, $tacheDebut, $tacheFin) //, $simulationMC
+	function __construct($id, $nom, $tacheDebut, $tacheFin)
 	{
 		$this->id = $id;
 		$this->nom = $nom;
@@ -34,10 +31,8 @@ class Project
 		$this->tacheFin = $tacheFin;
 		$this->listeRessources = array();
 		$this->listeParallelPaths = array();
-		//$this->simulationMC = $simulationMC;
 		$this->listeTaches = array();
 		$this->listeSimulateurs = array();
-		// array_push($this->listeSimulateurs, SimulationChargeGlobale::constructBasic(SimulateurEnum::ChargeGlobale, 10000, 30, $this)); //, $chargeEntree, $probabiliteEntree
 
 		$this->bdd = getBdd();
 
@@ -56,15 +51,17 @@ class Project
 
 		while ($donnees = $reponse->fetch())
 		{
-			$tache = new Task($donnees['id'], $donnees['nom']/* $donnees['duree']*/, $this);
-
-			// echo 'id ' . $donnees['id'] . " ";
+			$tache = new Task($donnees['id'], $donnees['nom'], $this);
 
 			$tache->loadLoi();
 			$tache->loadRessource();
 			$tache->loadPredecesseurs();
 			$tache->loadSuccesseurs();
 			array_push($this->listeTaches, $tache);
+
+			if($donnees['nom'] == 'Start') {
+				$this->tacheDebut = $tache;
+			}
 		}
 
 		$this->listeParallelPaths = $this->getParallelPaths();
@@ -72,8 +69,10 @@ class Project
 
 	function loadListeSimulateurs()
 	{
-		// On récupère tout le contenu de la table tâche
+		// On récupère tout le contenu de la table simulateur
 		$reponse = $this->bdd->query('SELECT * FROM simulateur');
+
+		$this->listeSimulateurs = array();
 
 		$simulateur = NULL;
 		while ($donnees = $reponse->fetch())
@@ -93,16 +92,13 @@ class Project
 
 			array_push($this->listeSimulateurs, $simulateur);
 		}
-		// echo ($this->listeSimulateurs[0]->nbEchantillons);
-		// echo ($this->listeSimulateurs[0]->largeurIntervalle);
-
 	}
 	function loadListeRessources() {
 		$reponse = $this->bdd->query('SELECT * FROM ressource');
 
 		while ($donnees = $reponse->fetch())
 		{
-			$ressource = new Ressource($donnees['id'], $donnees['nom'], $donnees['cout']); //, null, null
+			$ressource = new Ressource($donnees['id'], $donnees['nom'], $donnees['cout']);
 
 			array_push($this->listeRessources, $ressource);
 		}
@@ -111,7 +107,7 @@ class Project
 	public static function getInstance() {
 
 		if(is_null(self::$_instance)) {
-			self::$_instance = new Project(1, 'Gna', null, null); //, null
+			self::$_instance = new Project(1, 'Projet', null, null);
 		}
 
 		return self::$_instance;
@@ -128,19 +124,6 @@ class Project
         $this->$property = $value;
     }
   }
-
-	// function getListeTaches()
-	// {
-	// 	$reponse = $this->bdd->query('SELECT * FROM tache');
-	//
-	// 	$this->listeTaches = array();
-	//
-	// 	while ($donnees = $reponse->fetch())
-	// 	{
-	// 		array_push($this->listeTaches, new Task($donnees['nom'], null, null, null));
-	// 	}
-	// 	return $this->listeTaches;
-	// }
 
 	public function addTask($nom, $predecesseurs, $successeurs, $idRessource, $loi)
 	{
@@ -213,7 +196,6 @@ class Project
 
 		$this->listeTaches = array();
 		$this->loadListeTaches();
-
 	}
 
 	public function removeTask($id)
@@ -336,14 +318,12 @@ class Project
 
 		$this->listeTaches = array();
 		$this->loadListeTaches();
-
 	}
 
-
-
-	function addSimulateur($typeSimulateur, $nbEchantillons, $largeurIntervalle, $probabilite, $charge) { //, $chargeEntree, $probabiliteEntree
-		// $simulateur = NULL;
-		// echo 'add';
+	//-----------------------------------------------------------
+	//---------------------DEBUT SIMULATIONS---------------------
+	//-----------------------------------------------------------
+	function addSimulateur($typeSimulateur, $nbEchantillons, $largeurIntervalle, $probabilite, $charge) {
 		$q1 = $this->bdd->prepare("INSERT INTO simulateur (idProjet, typeSimulateur, nbEchantillons, largeurIntervalle, probabilite, charge)
 					VALUES (:idProjet, :typeSimulateur, :nbEchantillons, :largeurIntervalle, :probabilite, :charge)");
 		$q1->bindParam(':nbEchantillons', $nbEchantillons, PDO::PARAM_INT, 10);
@@ -354,31 +334,9 @@ class Project
 		$q1->bindParam(':idProjet', $this->id, PDO::PARAM_INT, 10);
 		$q1->execute();
 
-		// if($typeSimulateur == SimulateurEnum::ChargeGlobale) {
-		// 	$simulateur = new SimulationChargeGlobale($typeSimulateur, $nbEchantillons, $largeurIntervalle, $this);
-		// 	array_push($this->listeSimulateurs, $simulateur); //, $chargeEntree, $probabiliteEntree
-		// 	//faire insert bd
-		// }
-
-		//return $simulateur;
-
-		$this->listeSimulateurs = array();
 		$this->loadListeSimulateurs();
 
 		$simulateur = $this->getSimulateurByType($typeSimulateur);
-
-		// $simulateur = NULL;
-		// for ($i=0; $i < count($this->listeSimulateurs); $i++) {
-		// 	// echo 'entrou loop';
-		// 	// echo '$typeSimulateur ' . $typeSimulateur;
-		// 	// echo ' ';
-		// 	// echo '$this->listeSimulateurs[$i]->typeSimulateur ' . $this->listeSimulateurs[$i]->typeSimulateur;
-		// 	if($this->listeSimulateurs[$i]->typeSimulateur == $typeSimulateur) {
-		// 		echo 'encontrou';
-		// 		$simulateur = $this->listeSimulateurs[$i];
-		// 		$i = count($this->listeSimulateurs);
-		// 	}
-		// }
 
 		return $simulateur;
 	}
@@ -395,19 +353,10 @@ class Project
 		$q1->bindParam(':idProjet', $this->id, PDO::PARAM_INT, 10);
 		$q1->execute();
 
-		$this->listeSimulateurs = array();
 		$this->loadListeSimulateurs();
 
 		$simulateur = $this->getSimulateurByType($typeSimulateur);
 
-		// $simulateur = NULL;
-		// for ($i=0; $i < count($this->listeSimulateurs); $i++) {
-		// 	if($this->listeSimulateurs[$i]->typeSimulateur == $typeSimulateur) {
-		// 		$simulateur = $this->listeSimulateurs[$i];
-		// 		$i = count($this->listeSimulateurs);
-		// 	}
-		// }
-		//
 		return $simulateur;
 	}
 
@@ -437,11 +386,7 @@ class Project
 	}
 
 	function executeSimulation($typeSimulateur, $iteration, $intervalle, $probabilite, $charge) {
-		// echo ("executeSimulation");
-		// chercher si deja existent
-		// sinon créer et insérer dans la bd
 		$simulation = $this->getSimulateur($typeSimulateur, $iteration, $intervalle, $probabilite, $charge);
-		// $simulation = new SimulationChargeGlobale($typeSimulateur, $iteration, $intervalle, $this);
 		$res = $simulation->calculate();
 
 		return $res;
@@ -449,14 +394,14 @@ class Project
 
 	function estimateCharge($typeSimulateur, $iteration, $intervalle, $probabilite, $charge) {
 		$simulation = $this->getSimulateur($typeSimulateur, $iteration, $intervalle, $probabilite, $charge);
-		//update bd avec probabilite
+
 		$charge = $simulation->estimateChargeGivenProbability($probabilite);
 		return $charge;
 	}
 
 	function estimateProbability($typeSimulateur, $iteration, $intervalle, $probabilite, $charge) {
 		$simulation = $this->getSimulateur($typeSimulateur, $iteration, $intervalle, $probabilite, $charge);
-		//update bd avec charge
+
 		$probabilite = $simulation->estimateProbabilityGivenCharge($charge);
 		return $probabilite;
 	}
@@ -472,23 +417,27 @@ class Project
 
 		return $simulateur;
 	}
+	//-----------------------------------------------------------
+	//----------------------FIN SIMULATIONS----------------------
+	//-----------------------------------------------------------
 
+	// public function getLongestPath()
+	// {
+	// 	//calcular maior caminho ordenado
+	// 	return $this->listeTaches;
+	// }
 
-
-	public function getLongestPath()
-	{
-		//calcular maior caminho ordenado
-		return $this->listeTaches;
-	}
-
-	//PARALLEL PATHS
+	//--------------------------------------------------------------------
+	//----------------------DEBUT CHEMINS PARALLELES----------------------
+	//--------------------------------------------------------------------
 	function getParallelPaths() {
-    $start = $this->getTaskById(1);
+    $start = $this->getTaskById($this->tacheDebut->id);
     $allPathsFromStartToEnd = $this->getAllPathsFromStartToEnd($start);
 
     return $allPathsFromStartToEnd;
   }
 
+	// renvoie tous les chemins paralleles du graphe commençant par 'start' et finissant par 'end'
   function getAllPathsFromStartToEnd($task) {
     $resultList = array();
     $afterList = array();
@@ -496,16 +445,6 @@ class Project
     if (count($task->successeurs) == 0) {
       array_push($afterList, $task);
       array_push($resultList, $afterList);
-      return $resultList;
-    } else if(count($task->successeurs) == 1) {
-      $id = $task->successeurs[0]->id;
-      $nextTask = $this->getTaskById($id);
-      $partialList = $this->getAllPathsFromStartToEnd($nextTask);
-      while(count($partialList) > 0) {
-        $firstElementList = array_shift($partialList);
-        array_unshift($firstElementList, $task);
-        array_push($resultList, $firstElementList);
-      }
       return $resultList;
     } else {
       for ($i=0; $i < count($task->successeurs); $i++) {
@@ -535,6 +474,8 @@ class Project
 
 		return $tache;
   }
-
+	//------------------------------------------------------------------
+	//----------------------FIN CHEMINS PARALLELES----------------------
+	//------------------------------------------------------------------
 }
 ?>

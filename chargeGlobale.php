@@ -52,7 +52,7 @@
 
   <div class="row">
   <div class="col-xs-4">
-      <label for="chargeGivenCharge">Charge d'entrée (J.H)</label>
+      <label for="chargeGivenCharge">Charge d'entrée (j.h)</label>
       <input class="form-control" id="chargeGivenCharge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
   <div class="col-xs-4">
@@ -89,7 +89,7 @@
       <div class="col-xs-4">
 
     <div class="form-group">
-      <label for="chargeGivenProbability">Charge calculée (J.H)</label>
+      <label for="chargeGivenProbability">Charge calculée (j.h)</label>
       <output class="form-control" id="chargeGivenProbability_Charge" type="text" name="chargeGivenProbability" />
     </div>
   </div>
