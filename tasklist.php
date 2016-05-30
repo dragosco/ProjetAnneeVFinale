@@ -125,6 +125,7 @@ $project = Project::getInstance();
                                                             <label for="selectorpreds">Add predecessor</label>
                                                             <br>
                                                             <select class="selectorpreds">
+                                                                <option selected disabled>Choose...</option>
                                                                 <?php foreach ($project->listeTaches as $t) { ?>
                                                                     <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
                                                                 <?php } ?>
@@ -144,6 +145,7 @@ $project = Project::getInstance();
                                                             <label for="selectorsuccs">Add successor</label>
                                                             <br>
                                                             <select class="selectorsuccs">
+                                                                <option selected disabled>Choose...</option>
                                                                 <?php foreach ($project->listeTaches as $t) { ?>
                                                                     <option value="<?php echo $t->id; ?>"><?php echo $t->nom; ?></option>
                                                                 <?php } ?>
