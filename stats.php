@@ -47,9 +47,8 @@ $project = Project::getInstance();
 		        <div class="panel-heading"><span class="glyphicon glyphicon-tasks"></span> Monte Carlo</div>
 		        <div class="panel-body">
 							<?php require 'chargeGlobale.php'; ?>
-							<?php require 'coutGlobal.php'; ?>
 							<?php require 'dureeGlobale.php'; ?>
-							<?php require 'margeFinanciere.php'; ?>
+							<?php require 'coutGlobal.php'; ?>
 					 	</div>
 		      </div>
 		    </div>
