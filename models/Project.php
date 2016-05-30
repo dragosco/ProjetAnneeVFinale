@@ -3,6 +3,7 @@ require("Task.php");
 //require("SimulateurEnum.php");
 require("SimulationChargeGlobale.php");
 require("SimulationCoutGlobal.php");
+require("SimulationDureeGlobale.php");
 require("SimulationMargeFinanciere.php");
 //require("cnx.php");
 /*
@@ -18,6 +19,7 @@ class Project
 	var $tacheFin;
 	var $listeTaches;
 	var $listeRessources;
+	var $listeParallelPaths;
 	//var $simulationMC;
 	var $listeSimulateurs;
 	var $bdd;
@@ -31,6 +33,7 @@ class Project
 		$this->tacheDebut = $tacheDebut;
 		$this->tacheFin = $tacheFin;
 		$this->listeRessources = array();
+		$this->listeParallelPaths = array();
 		//$this->simulationMC = $simulationMC;
 		$this->listeTaches = array();
 		$this->listeSimulateurs = array();
@@ -47,12 +50,15 @@ class Project
 
 	function loadListeTaches()
 	{
+		$this->listeTaches = array();
 		// On récupère tout le contenu de la table tâche
 		$reponse = $this->bdd->query('SELECT * FROM tache');
 
 		while ($donnees = $reponse->fetch())
 		{
 			$tache = new Task($donnees['id'], $donnees['nom']/* $donnees['duree']*/, $this);
+
+			// echo 'id ' . $donnees['id'] . " ";
 
 			$tache->loadLoi();
 			$tache->loadRessource();
@@ -61,7 +67,7 @@ class Project
 			array_push($this->listeTaches, $tache);
 		}
 
-
+		$this->listeParallelPaths = $this->getParallelPaths();
 	}
 
 	function loadListeSimulateurs()
@@ -474,6 +480,61 @@ class Project
 		//calcular maior caminho ordenado
 		return $this->listeTaches;
 	}
+
+	//PARALLEL PATHS
+	function getParallelPaths() {
+    $start = $this->getTaskById(1);
+    $allPathsFromStartToEnd = $this->getAllPathsFromStartToEnd($start);
+
+    return $allPathsFromStartToEnd;
+  }
+
+  function getAllPathsFromStartToEnd($task) {
+    $resultList = array();
+    $afterList = array();
+
+    if (count($task->successeurs) == 0) {
+      array_push($afterList, $task);
+      array_push($resultList, $afterList);
+      return $resultList;
+    } else if(count($task->successeurs) == 1) {
+      $id = $task->successeurs[0]->id;
+      $nextTask = $this->getTaskById($id);
+      $partialList = $this->getAllPathsFromStartToEnd($nextTask);
+      while(count($partialList) > 0) {
+        $firstElementList = array_shift($partialList);
+        array_unshift($firstElementList, $task);
+        array_push($resultList, $firstElementList);
+      }
+      return $resultList;
+    } else {
+      for ($i=0; $i < count($task->successeurs); $i++) {
+        $id = $task->successeurs[$i]->id;
+        $nextTask = $this->getTaskById($id);
+        $partialList = $this->getAllPathsFromStartToEnd($nextTask);
+        while(count($partialList) > 0) {
+          $firstElementList = array_shift($partialList);
+          array_unshift($firstElementList, $task);
+          array_push($resultList, $firstElementList);
+        }
+      }
+
+      return $resultList;
+    }
+  }
+
+  function getTaskById($id) {
+    $tache = NULL;
+
+		for ($i=0; $i < count($this->listeTaches); $i++) {
+			if($this->listeTaches[$i]->id == $id) {
+				$tache = $this->listeTaches[$i];
+				$i = count($this->listeTaches);
+			}
+		}
+
+		return $tache;
+  }
 
 }
 ?>

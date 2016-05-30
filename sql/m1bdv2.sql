@@ -242,26 +242,26 @@ INSERT INTO `successeur` (`idSuccesseur`, `idTache`) VALUES
 INSERT INTO `loi` (`id`, `nom`, `idTache`, `valeurMin`, `valeurMax`) VALUES
 (1, 'sansLoi', 1, 0, 0),
 (2, 'sansLoi', 2, 0, 0),
-(3, 'beta', 3, 0, 5),
-(4, 'normale', 4, 0, 4),
-(5, 'triangulaire', 5, 0, 2),
-(6, 'uniforme', 6, 0, 15),
-(7, 'sansLoi', 7, 2, 2),
-(8, 'beta', 6, 0, 2),
-(9, 'normale', 8, 0, 5),
-(10, 'triangulaire', 10, 0, 4);
+(3, 'beta', 3, 3, 5),
+(4, 'normale', 4, 2, 4),
+(5, 'triangulaire', 5, 2, 3),
+(6, 'uniforme', 6, 10, 15),
+(7, 'sansLoi', 7, 5, 5),
+(8, 'beta', 8, 1, 2),
+(9, 'normale', 9, 3, 5),
+(10, 'triangulaire', 10, 3, 4);
 
 INSERT INTO `loiBeta` (`id`, `w`, `v`) VALUES
-(1, 1.5, 2),
-(6, 0.5, 1);
+(3, 1.5, 3),
+(8, 3, 3);
 
 INSERT INTO `loiNormale` (`id`, `mu`, `sigma`) VALUES
-(2, 0, 2),
-(7, 1, 2);
+(4, 1, 1),
+(9, 1, 2);
 
 INSERT INTO `loiTriangulaire` (`id`, `c`) VALUES
-(3, 1.5),
-(8, 2);
+(5, 2.5),
+(10, 3.5);
 
 --
 -- Contenu de la table `membre`

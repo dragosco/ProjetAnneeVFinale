@@ -1,9 +1,9 @@
 <?php
   $simulateur = $project->getSimulateurByType('dureeGlobale');
   $iteration = 10000;
-  $intervalle = 200;
+  $intervalle = 5;
   $probabilite = 80;
-  $charge = 2000;
+  $charge = 20;
   if(!is_null($simulateur)) {
     $iteration = $simulateur->nbEchantillons;
     $intervalle = $simulateur->largeurIntervalle;

@@ -42,19 +42,51 @@ class Task
 	public function loadLoi()
 	{
 		//if($this->duree == 0) {
-		$reponse = $this->bdd->query('SELECT l.* FROM tache t, loi l where t.id = l.idTache');
-		$loi = $reponse->fetch();
+
+		$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$q = $this->bdd->prepare("SELECT l.* FROM tache t, loi l WHERE t.id = l.idTache AND t.id = ?");
+		$q->execute(array($this->id));
+		$loi = $q->fetch(PDO::FETCH_ASSOC);
+
+		// echo "loi " . $loi['nom'] . " ";
+		// 		echo "loi id " . $loi['id'] . " ";
+
+		// $reponse = $this->bdd->query('SELECT l.* FROM tache t, loi l where t.id = l.idTache');
+		// $loi = $reponse->fetch();
+		// echo "loi id " . $loi['id'];
+		// echo "loi id tache " . $loi['idTache'];
+		// echo "loi " . $loi['nom'];
 		if($loi['nom'] == LoiEnum::Beta) {
-			$reponse = $this->bdd->query('SELECT b.* FROM loi l, loiBeta b where l.id = b.id');
-			$beta = $reponse->fetch();
-			$this->loi = new LoiBeta($loi['valeurMin'], $loi['valeurMax'], $beta['w'], $beta['v']);
+			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$q = $this->bdd->prepare("SELECT b.* FROM loi l, loiBeta b where b.id = ?");
+			$q->execute(array($loi['id']));
+			$beta = $q->fetch(PDO::FETCH_ASSOC);
+
+			// echo '$loi valeurMin ' . $loi['valeurMin'] . ' ';
+			// 			echo '$loi valeurMax ' . $loi['valeurMax'] . ' ';
+			// 						echo 'beta w ' . $beta['w'] . ' ';
+			// 									echo 'beta v ' . $beta['v'] . ' ';
+
+			// $reponse = $this->bdd->query('SELECT b.* FROM loi l, loiBeta b where l.id = b.id');
+			// $beta = $reponse->fetch();
+			$this->loi = new LoiBeta($loi['valeurMin'], $loi['valeurMax'], $beta['v'], $beta['w']);
 		} else if($loi['nom'] == LoiEnum::Triangulaire) {
-			$reponse = $this->bdd->query('SELECT t.* FROM loi l, loiTriangulaire t where l.id = t.id');
-			$triangulaire = $reponse->fetch();
+			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$q = $this->bdd->prepare("SELECT t.* FROM loi l, loiTriangulaire t where t.id = ?");
+			$q->execute(array($loi['id']));
+			$triangulaire = $q->fetch(PDO::FETCH_ASSOC);
+
+			// $reponse = $this->bdd->query('SELECT t.* FROM loi l, loiTriangulaire t where l.id = t.id');
+			// $triangulaire = $reponse->fetch();
 			$this->loi = new LoiTriangulaire($loi['valeurMin'], $loi['valeurMax'], $triangulaire['c']);
 		} else if($loi['nom'] == LoiEnum::Normale) {
-			$reponse = $this->bdd->query('SELECT n.* FROM loi l, loiNormale n where l.id = n.id');
-			$normale = $reponse->fetch();
+			$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$q = $this->bdd->prepare("SELECT n.* FROM loi l, loiNormale n where n.id = ?");
+			$q->execute(array($loi['id']));
+			$normale = $q->fetch(PDO::FETCH_ASSOC);
+
+			// $reponse = $this->bdd->query('SELECT n.* FROM loi l, loiNormale n where l.id = n.id');
+			// $normale = $reponse->fetch();
 			$this->loi = new LoiNormaleTronquee($loi['valeurMin'], $loi['valeurMax'], $normale['mu'], $normale['sigma']);
 		} else if($loi['nom'] == LoiEnum::Uniforme) {
 			$this->loi = new LoiRand($loi['valeurMin'], $loi['valeurMax']);
