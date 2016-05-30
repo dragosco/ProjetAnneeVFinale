@@ -301,41 +301,6 @@ function calculateLongestPath(element) {
     return max;
 }
 
-$(document).ready(function() {
-    $('#enlargePaperWidthButton').click(function() {
-        paper.setDimensions(paper.options.width + 100, paper.options.height);
-        bounds.resize(paper.options.width + 100, paper.options.height);
-        start.position(10, bounds.get('size').height/2-110);
-        end.position(bounds.get('size').width-200, bounds.get('size').height/2-110);
-        reorganizeGraphPositions();
-    });
-
-    $('#enlargePaperHeightButton').click(function() {
-        paper.setDimensions(paper.options.width, paper.options.height + 100);
-        bounds.resize(paper.options.width, paper.options.height + 100);
-        start.position(10, bounds.get('size').height/2-110);
-        end.position(bounds.get('size').width-200, bounds.get('size').height/2-110);
-        reorganizeGraphPositions();
-    });
-
-    $('#reorganizeGraphButton').click(function() {
-        reorganizeGraphPositions();
-    });
-
-    $('#zoominButton').click(function() {
-        paper.scale(2,2);
-    });
-
-    $('#reloadButton').click(function() {
-        location.reload();
-    });
-
-    $('#reloadButton').click(function() {
-        location.reload();
-    });
-
-
-});
 /*function getLevel(elements, level) {
  var result  = elements.filter(
  function(o) {

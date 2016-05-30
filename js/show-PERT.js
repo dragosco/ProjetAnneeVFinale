@@ -58,6 +58,32 @@ $(document).ready(function() {
         }
     });
 
+    var start = getCellByText('Start');
+    var end = getCellByText('End');
+
+    $('#enlargePaperWidthButton').click(function() {
+        paper.setDimensions(paper.options.width + 100, paper.options.height);
+        bounds.resize(paper.options.width + 100, paper.options.height);
+        start.position(10, bounds.get('size').height/2-110);
+        end.position(bounds.get('size').width-200, bounds.get('size').height/2-110);
+        reorganizeGraphPositions();
+    });
+
+    $('#enlargePaperHeightButton').click(function() {
+        paper.setDimensions(paper.options.width, paper.options.height + 100);
+        bounds.resize(paper.options.width, paper.options.height + 100);
+        start.position(10, bounds.get('size').height/2-110);
+        end.position(bounds.get('size').width-200, bounds.get('size').height/2-110);
+        reorganizeGraphPositions();
+    });
+
+    $('#reorganizeGraphButton').click(function() {
+        reorganizeGraphPositions();
+    });
+
+    $('#reloadButton').click(function() {
+        location.reload();
+    });
     // $('#saveGraph').click(function() {
     //
     //     var jsonGraph = JSON.stringify(graph.toJSON());

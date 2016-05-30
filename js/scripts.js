@@ -123,6 +123,25 @@ $(document).ready(function() {
     });
 
 
+    $('.params').hide();
+    $('form.updateLoi').find('select').change(function() {
+        var loiSelect = $(this).find('option:selected').val();
+        var params = $(this).parent().parent();
+
+        params.find('div.params').hide();
+
+        if(loiSelect === "uniforme") {
+            params.find('div.uniforme').show();
+        } else if(loiSelect === "beta") {
+            params.find('div.beta').show();
+        } else if(loiSelect === "triangulaire") {
+            params.find('div.triangulaire').show();
+        } else if(loiSelect === "normale") {
+            params.find('div.normale').show();
+        } else if(loiSelect === "sansLoi") {
+            params.find('div.sansLoi').show();
+        }
+    });
 });
 
 $(document).on('click', '.btn-group button', function (e) {

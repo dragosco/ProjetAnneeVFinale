@@ -260,6 +260,9 @@ class Project
 			$q->bindParam(':idTache', $nvpred, PDO::PARAM_INT);
 			$q->execute();
 		}
+
+		$this->listeTaches = array();
+		$this->loadListeTaches();
 	}
 
 	public function updateSuccesseurs($idTache, $listeSuccesseurs) {
@@ -284,57 +287,51 @@ class Project
 			$q->bindParam(':idTache', $nvsucc, PDO::PARAM_INT);
 			$q->execute();
 		}
+
+		$this->listeTaches = array();
+		$this->loadListeTaches();
 	}
 
+	public function updateTaskLoi($id, $loi) {
+		$q = $this->bdd->prepare("DELETE FROM loi WHERE idTache = :idTache");
+		$q->bindParam(':idTache', $id, PDO::PARAM_INT);
+		$q->execute();
 
+		$q1 = $this->bdd->prepare("INSERT INTO loi (nom, idTache, valeurMin, valeurMax)
+										VALUES (:nomLoi, :idTache, :valeurMin, :valeurMax)");
+		$q1->bindParam(':nomLoi', $loi['nom'], PDO::PARAM_STR, 50);
+		$q1->bindParam(':idTache', $id, PDO::PARAM_INT);
+		$q1->bindParam(':valeurMin', $loi['valeurMin'], PDO::PARAM_INT);
+		$q1->bindParam(':valeurMax', $loi['valeurMax'], PDO::PARAM_INT);
+		$q1->execute();
 
-//	public function removePredecesseur($idTache, $idPredecesseur) {
-//		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idPredecesseur AND idTache = :idTache");
-//		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
-//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
-//		$q->execute();
-//
-//		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idTache AND idTache = :idPredecesseur");
-//		$q->bindParam(':idPredecesseur', $idPredecesseur, PDO::PARAM_INT);
-//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
-//		$q->execute();
-//	}
-//
-//	public function removeSuccesseur($idTache, $idSuccesseur) {
-//		$q = $this->bdd->prepare("DELETE FROM successeur WHERE idSuccesseur = :idSuccesseur AND idTache = :idTache");
-//		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
-//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
-//		$q->execute();
-//
-//		$q = $this->bdd->prepare("DELETE FROM predecesseur WHERE idPredecesseur = :idTache AND idTache = :idSuccesseur");
-//		$q->bindParam(':idSuccesseur', $idSuccesseur, PDO::PARAM_INT);
-//		$q->bindParam(':idTache', $idTache, PDO::PARAM_INT);
-//		$q->execute();
-//	}
+		$idLoi = $this->bdd->lastInsertId();
 
-	public function updateTable($table) {
-		$this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		foreach ($table as $task) {
-
-			$nom = $task['nom'];
-			$nvprec1 = $task['precedent1'];
-			$nvprec2 = $task['precedent2'];
-			$nvsuiv1 = $task['suivant1'];
-			$nvsuiv2 = $task['suivant2'];
-
-			$q = $this->bdd->prepare("UPDATE tache SET precedent1 = :nvprec1, precedent2 = :nvprec2, suivant1 = :nvsuiv1, suivant2 = :nvsuiv2 WHERE nom = :nom");
-			$q->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
-			$q->bindParam(':nvprec1', $nvprec1, PDO::PARAM_STR, 50);
-			$q->bindParam(':nvprec2', $nvprec2, PDO::PARAM_STR, 50);
-			$q->bindParam(':nvsuiv1', $nvsuiv1, PDO::PARAM_STR, 50);
-			$q->bindParam(':nvsuiv2', $nvsuiv2, PDO::PARAM_STR, 50);
-			$q->execute();
+		if($loi['nom'] == LoiEnum::Beta) {
+			$q3 = $this->bdd->prepare("INSERT INTO loiBeta (id, w, v) VALUES (:id, :w, :v)");
+			$q3->bindParam(':id', $idLoi, PDO::PARAM_INT);
+			$q3->bindParam(':w', $loi['w'], PDO::PARAM_STR, 50);
+			$q3->bindParam(':v', $loi['v'], PDO::PARAM_STR, 50);
+			$q3->execute();
+		} else if($loi['nom'] == LoiEnum::Triangulaire) {
+			$q3 = $this->bdd->prepare("INSERT INTO loiTriangulaire (id, c) VALUES (:id, :c)");
+			$q3->bindParam(':id', $idLoi, PDO::PARAM_INT);
+			$q3->bindParam(':c', $loi['c'], PDO::PARAM_STR, 50);
+			$q3->execute();
+		} else if($loi['nom'] == LoiEnum::Normale) {
+			$q3 = $this->bdd->prepare("INSERT INTO loiNormale (id, mu, sigma) VALUES (:id, :mu, :sigma)");
+			$q3->bindParam(':id', $idLoi, PDO::PARAM_INT);
+			$q3->bindParam(':mu', $loi['mu'], PDO::PARAM_STR, 50);
+			$q3->bindParam(':sigma', $loi['sigma'], PDO::PARAM_STR, 50);
+			$q3->execute();
 		}
 
 		$this->listeTaches = array();
 		$this->loadListeTaches();
 
 	}
+
+
 
 	function addSimulateur($typeSimulateur, $nbEchantillons, $largeurIntervalle, $probabilite, $charge) { //, $chargeEntree, $probabiliteEntree
 		// $simulateur = NULL;

@@ -37,7 +37,7 @@ $project = Project::getInstance();
                 <div class="panel panel-default">
 					<div class="panel-heading">
 						<a class="btn btn-link" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Add Task</a>
-						<a class="btn btn-link" href="tasklist_edit.php">Edit Task List</a>
+
 					</div>
                     	<div class="panel-body">
                         <table class="table">
@@ -105,16 +105,18 @@ $project = Project::getInstance();
                                                     </div>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="POST" action="update.php">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <form method="POST" action="update.php">
                                                                 <label for="nm">Change name</label>
                                                                 <input type="text" class="form-control" id="nm" name="nvnom" value="<?php echo $task->nom; ?>" />
                                                                 <input type="hidden" name="id" value="<?php echo $task->id; ?>" />
                                                                 <button type="submit" id="submitTaskChanges" class="btn btn-info pull-right">Update name</button>
-                                                            </div>
+                                                            </form>
                                                         </div>
-                                                    </form>
+                                                    </div>
+
                                                     <div class="row tache">
                                                         <div class="col-md-12">
                                                             <p class="message" style="color:darkred;">The predecessor and successor of a task must be different</p>
@@ -157,12 +159,81 @@ $project = Project::getInstance();
 
                                                             <button class="submitNvxSuccs btn btn-info pull-right" id="<?php echo $task->id; ?>" >Update successors</button>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group">
-                                                            <label for="nvloi">Change associated distribution</label>
 
-                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        <form class="updateLoi" method="POST" action="update.php" >
+                                                            <input type="hidden" name="id" value="<?php echo $task->id; ?>" />
+                                                            <div class="form-group col-md-12">
+                                                                <label for="nvloi">Change associated distribution</label>
+                                                                <select name="nvloi">
+                                                                    <option disabled selected>Choose new distribution...</option>
+                                                                    <option value="uniforme">Uniform distribution</option>
+                                                                    <option value="beta">Beta distribution</option>
+                                                                    <option value="triangulaire">Triangular distribution</option>
+                                                                    <option value="normale">Normal/Gaussian distribution</option>
+                                                                    <option value="sansLoi">Constant</option>
+                                                                </select>
+                                                            </div>
+                                                            <br>
+                                                            <div class="form-group row params uniforme">
+
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_unif">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_unif">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row params beta">
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_beta">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_beta">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="v" name="v">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="w" name="w">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row params triangulaire">
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_triang">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_triang">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="c" name="c">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row params normale">
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_norm">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_norm">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="mu" name="mu">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="sigma" name="sigma">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row params sansLoi">
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="number" step="0.1" class="form-control" placeholder="constant" name="valeur" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <button type="submit" class="btn-info pull-right" >Update distribution</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
 
                                                 </div>
