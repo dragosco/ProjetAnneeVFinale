@@ -1,4 +1,7 @@
+<?php
+session_start();
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +37,11 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
-
+					<?php if( isset($_SESSION['Error']) )
+								{
+									?> <p style="color:darkred;"><?php echo $_SESSION['Error']; ?></p><?php
+									unset($_SESSION['Error']);
+								} ?>
 					<!-- Formulaire de connexion -->
 					<form methode ="GET" action="testCnx.php">
 						<fieldset>

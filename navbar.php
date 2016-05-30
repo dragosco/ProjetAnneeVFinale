@@ -10,7 +10,7 @@
       <a class="navbar-brand" href="index.php"><span>Project</span>Management<span>Assistant</span></a>
 
               <ul class="nav navbar-top-links navbar-right">
-                      <a href="login.php" class="navbar-brand">| <span class="glyphicon glyphicon-user"></span> Logout</a>
+                      <a href="logout.php" class="navbar-brand">| <span class="glyphicon glyphicon-user"></span> Logout</a>
       </ul>
               <ul class="nav navbar-top-links navbar-right">
                       <a href="stats.php" class="navbar-brand">| <span class="glyphicon glyphicon-stats"></span> Statistics</a>

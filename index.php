@@ -1,12 +1,14 @@
 <?php
 require("models/Project.php");
-
+session_start();
 // Tentative d'instanciation de la classe
 $project = Project::getInstance();
 //require("cnx.php");
 
-// On récupère tout le contenu de la table tâche
-//$reponse = $bdd->query('SELECT * FROM tache');
+if(!isset($_SESSION['email'])){
+	header("Location: login.php");
+}
+
 ?>
 
 <html>
