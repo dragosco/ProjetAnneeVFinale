@@ -168,11 +168,10 @@ $project = Project::getInstance();
                                                             <div class="form-group col-md-12">
                                                                 <label for="nvloi">Change associated distribution</label>
                                                                 <select name="nvloi">
-<!--                                                                    <option value="--><?php //echo get_class($task->loi); ?><!--">--><?php //echo get_class($task->loi); ?><!--</option>-->
                                                                     <option value="uniforme" <?php if(get_class($task->loi) == 'LoiRand') { ?> selected <?php } ?> >Uniform distribution</option>
                                                                     <option value="beta" <?php if(get_class($task->loi) == 'LoiBeta') { ?> selected <?php } ?> >Beta distribution</option>
                                                                     <option value="triangulaire" <?php if(get_class($task->loi) == 'LoiTriangulaire') { ?> selected <?php } ?> >Triangular distribution</option>
-                                                                    <option value="normale" <?php if(get_class($task->loi) == 'LoiNormale') { ?> selected <?php } ?> >Normal/Gaussian distribution</option>
+                                                                    <option value="normale" <?php if(get_class($task->loi) == 'LoiNormaleTronquee') { ?> selected <?php } ?> >Normal/Gaussian distribution</option>
                                                                     <option value="sansLoi" <?php if(get_class($task->loi) == 'SansLoi') { ?> selected <?php } ?> >Constant</option>
                                                                 </select>
                                                             </div>
@@ -180,58 +179,61 @@ $project = Project::getInstance();
                                                             <div class="form-group row params uniforme">
 
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_unif">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiRand') { echo $task->loi->valeurMin; } ?>" placeholder="min" name="min_unif">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_unif">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiRand') { echo $task->loi->valeurMax; } ?>" placeholder="max" name="max_unif">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row params beta">
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_beta">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiBeta') { echo $task->loi->valeurMin; } else { echo 'min'; } ?>" placeholder="min" name="min_beta">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_beta">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiBeta') { echo $task->loi->valeurMax; } else { echo 'max'; } ?>" placeholder="max" name="max_beta">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="v" name="v">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiBeta') { echo $task->loi->v; } ?>" placeholder="v" name="v">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="w" name="w">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiBeta') { echo $task->loi->w; } ?>" placeholder="w" name="w">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row params triangulaire">
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_triang">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiTriangulaire') { echo $task->loi->valeurMin; } ?>" placeholder="min" name="min_triang">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_triang">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiTriangulaire') { echo $task->loi->valeurMax; } ?>" placeholder="max" name="max_triang">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="c" name="c">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiTriangulaire') { echo $task->loi->c; } ?>" placeholder="c" name="c">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row params normale">
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="min" name="min_norm">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiNormaleTronquee') { echo $task->loi->valeurMin; } ?>" placeholder="min" name="min_norm">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="max" name="max_norm">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiNormaleTronquee') { echo $task->loi->valeurMax; } ?>" placeholder="max" name="max_norm">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="mu" name="mu">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiNormaleTronquee') { echo $task->loi->mu; } ?>" placeholder="mu" name="mu">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="sigma" name="sigma">
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'LoiNormaleTronquee') { echo $task->loi->sigma; } ?>" placeholder="sigma" name="sigma">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row params sansLoi">
                                                                 <div class="form-group col-md-6">
-                                                                    <input type="number" step="0.1" class="form-control" placeholder="constant" name="valeur" />
+                                                                    <input type="number" step="0.1" class="form-control" value="<?php if(get_class($task->loi) == 'SansLoi') { echo $task->loi->val; } ?>" placeholder="value" name="valeur" />
                                                                 </div>
                                                             </div>
+
                                                             <div class="form-group row">
-                                                                <button type="submit" class="btn-info pull-right" >Update distribution</button>
+                                                                <div class="col-md-12">
+                                                                    <button type="submit" class="btn btn-info pull-right" >Update distribution</button>
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>

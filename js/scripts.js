@@ -123,8 +123,8 @@ $(document).ready(function() {
     });
 
 
-    $('form.updateLoi').find('select').find('option:not(:selected)').each(function() {
-        $('div.' + $(this).val()).hide();
+    $('form.updateLoi').find('option:not(:selected)').each(function() {
+        $(this).parent().parent().parent().find('div.' + $(this).val()).hide();
     });
 
     $('form.updateLoi').find('select').change(function() {
