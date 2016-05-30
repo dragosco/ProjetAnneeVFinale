@@ -39,7 +39,7 @@
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br>
         <button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value, 'containerChargeGlobale')">
-          Générer
+          <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
     </div>
@@ -59,7 +59,7 @@
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br>
         <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateProbability(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value)">
-          Calculer
+          <span class="glyphicon glyphicon-arrow-right"></span>
         </button>
       <!-- </form> -->
     </div>
@@ -83,7 +83,7 @@
   <div class="form-group">
       <br><br>
         <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateCharge(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value)">
-        Calculer
+        <span class="glyphicon glyphicon-arrow-right"></span>
       </button>
     </div></div>
       <div class="col-xs-4">

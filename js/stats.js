@@ -5,8 +5,7 @@ $(document).ready(function() {
   $('#contenu_Marge').hide();
 
   $('#titreChargeGlobale').on('click', function(event) {
-    $('#contenuChargeGlobale').slideToggle(); //'show'
-    // $('#contenuChargeGlobale').toggle();
+    $('#contenuChargeGlobale').slideToggle();
   });
   $('#titreCoutGlobal').on('click', function(event) {
     $('#contenuCoutGlobal').slideToggle();
@@ -20,6 +19,7 @@ $(document).ready(function() {
   $('#waitForGraph').hide();
 });
 
+//fonction qui dessine le graphique correspondant au type de simulateur passé par paramètre
 function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, divId) {
   var parametres = {typeSimulateur: typeSimulateur, iteration: iteration, intervalle: intervalle,
      probabilite: probabilite, charge: charge};
@@ -38,16 +38,10 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
 
   $.ajax({
       type: 'POST',
-      url: "/ProjetAnneeVFinale/json/calculStat_json.php", //?iteration="+iteration+"&intervale="+intervale,
+      url: "/ProjetAnneeVFinale/json/calculStat_json.php",
       dataType: 'json',
       data: parametres,
-      // beforeSend: function() {
-      //   alert(typeSimulateur);
-      //     alert(iteration);
-      //       alert(intervalle);
-      // },
       success: function (data) {
-        // alert("entrou");
         xAxis = data.xAxis;
         yAxis = data.yAxis;
 
@@ -83,13 +77,12 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
               data: yAxis
           }]
         });
-      }//,
-      // error: function(XMLHttpRequest, textStatus, errorThrown) {
-      //               alert("Status: " + textStatus); alert("Error: " + errorThrown);
-      //           }
+      }
   });
 };
 
+//fonction qui affiche le resultat du calcul de l'estimation d'une probabilité donné une entrée
+//(charge, durée, coût)
 function estimateProbability(typeSimulateur, iteration, intervalle, probabilite, charge) {
   var parametres = {typeSimulateur: typeSimulateur, iteration: iteration, intervalle: intervalle,
      probabilite: probabilite, charge: charge};
@@ -107,7 +100,7 @@ function estimateProbability(typeSimulateur, iteration, intervalle, probabilite,
 
   $.ajax({
     type: 'POST',
-    url: "/ProjetAnneeVFinale/json/estimateProbabilityGivenCharge_json.php", //?iteration="+iteration+"&intervale="+intervale+"&charge="+charge,
+    url: "/ProjetAnneeVFinale/json/estimateProbabilityGivenCharge_json.php",
     dataType: 'json',
     data: parametres,
     success: function (data) {
@@ -117,6 +110,8 @@ function estimateProbability(typeSimulateur, iteration, intervalle, probabilite,
   });
 };
 
+//fonction qui affiche le resultat du calcul de l'estimation d'une sortie (charge, durée, coût)
+//donné une probabilité
 function estimateCharge(typeSimulateur, iteration, intervalle, probabilite, charge) {
   var parametres = {typeSimulateur: typeSimulateur, iteration: iteration, intervalle: intervalle,
      probabilite: probabilite, charge: charge};
@@ -134,7 +129,7 @@ function estimateCharge(typeSimulateur, iteration, intervalle, probabilite, char
 
   $.ajax({
     type: 'POST',
-    url: "/ProjetAnneeVFinale/json/estimateChargeGivenProbability_json.php", //?iteration="+iteration+"&intervale="+intervale+"&probabilite="+probabilite,
+    url: "/ProjetAnneeVFinale/json/estimateChargeGivenProbability_json.php",
     dataType: 'json',
     data: parametres,
     success: function (data) {

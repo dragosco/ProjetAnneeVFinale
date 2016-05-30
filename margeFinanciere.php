@@ -33,7 +33,7 @@
     <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Marge.value, iteration_Marge.value, intervalle_Marge.value, probabiliteGivenProbability_Marge.value, chargeGivenCharge_Marge.value, 'container_Marge')">
-          Générer
+          <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
     </div>
@@ -43,13 +43,13 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-xs-4">
-      <label for="chargeGivenCharge">Coût d'entrée (€)</label>
+      <label for="chargeGivenCharge">Marge d'entrée<br>(€)</label>
       <input class="form-control" id="chargeGivenCharge_Marge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
     <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateProbability(typeSimulateur_Marge.value, iteration_Marge.value, intervalle_Marge.value, probabiliteGivenProbability_Marge.value, chargeGivenCharge_Marge.value)">
-          Calculer
+          <span class="glyphicon glyphicon-arrow-right"></span>
         </button>
       <!-- </form> -->
     </div>
@@ -68,15 +68,49 @@
     </div>
     <div class="col-xs-4">
       <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateCharge(typeSimulateur_Marge.value, iteration_Marge.value, intervalle_Marge.value, probabiliteGivenProbability_Marge.value, chargeGivenCharge_Marge.value)">
-        Calculer
+        <span class="glyphicon glyphicon-arrow-right"></span>
       </button>
     </div>
     <div class="col-xs-4">
-      <label for="chargeGivenProbability">Coût calculé en (€)</label>
+      <label for="chargeGivenProbability">Marge calculée<br>(€)</label>
       <output class="form-control" id="chargeGivenProbability_Marge" type="text" name="chargeGivenProbability" />
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="row">
+
+    <div class="col-xs-6 col-sm-3">
+      <label for="probabiliteGivenProbability">Le coût d'entrée</label>
+      <input class="form-control" id="cout" type="text" name="probabiliteGivenProbability" value=""/>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="chargeGivenProbability">Prix vendu en (€)</label>
+      <input class="form-control" id="prixvendu" type="text" name="probabiliteGivenProbability" value=""/>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+    <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="marge()">
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </button>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <label for="margeFinanciere">Résultat calculé</label>
+      <p id="margeFinanciere" name="margeFinanciere"></p>
     </div>
   </div>
 </div>
   <br> <div id="container_Marge"></div>
    <!-- style="height: 400px; width: 100%;" -->
 </div>
+
+<script>
+
+function marge()
+    {
+      var cout = document.getElementById("cout").value;
+      var prixvendu = document.getElementById("prixvendu").value;
+      var margeFinanciere = ((prixvendu*1)-(cout*1))/((prixvendu*1));
+      document.getElementById("margeFinanciere").innerHTML = "Marge financière : "+margeFinanciere.toFixed(2)*100+" %";
+}
+</script>

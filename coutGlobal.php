@@ -33,7 +33,7 @@
       <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Cout.value, iteration_Cout.value, intervalle_Cout.value, probabiliteGivenProbability_Cout.value, chargeGivenCharge_Cout.value, 'containerCoutGlobal')">
-          Générer
+          <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
     </div>
@@ -49,7 +49,7 @@
       <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateProbability(typeSimulateur_Cout.value, iteration_Cout.value, intervalle_Cout.value, probabiliteGivenProbability_Cout.value, chargeGivenCharge_Cout.value)">
-          Calculer
+          <span class="glyphicon glyphicon-arrow-right"></span>
         </button><br>
       <!-- </form> -->
     </div>
@@ -69,7 +69,7 @@
     </div>
       <div class="col-xs-4">
       <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateCharge(typeSimulateur_Cout.value, iteration_Cout.value, intervalle_Cout.value, probabiliteGivenProbability_Cout.value, chargeGivenCharge_Cout.value)">
-        Calculer
+        <span class="glyphicon glyphicon-arrow-right"></span>
       </button>
     </div>
       <div class="col-xs-4">

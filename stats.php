@@ -48,6 +48,7 @@ if(!isset($_SESSION['email'])){
 							<?php require 'chargeGlobale.php'; ?>
 							<?php require 'dureeGlobale.php'; ?>
 							<?php require 'coutGlobal.php'; ?>
+							<?php require 'margeFinanciere.php'; ?>
 					 	</div>
 		      </div>
 		    </div>
