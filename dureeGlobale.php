@@ -26,7 +26,8 @@
       <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Duree" type="text" name="iterationDureeGlobale" value=<?php echo $iteration; ?> required >
     </div>
-      <div class="col-xs-4">
+    <div class="col-xs-4">
+      <br>
       <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle_Duree" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div>

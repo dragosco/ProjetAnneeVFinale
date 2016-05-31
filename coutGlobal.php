@@ -26,8 +26,9 @@
       <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Cout" type="text" name="iterationCoutGlobal" value=<?php echo $iteration; ?> required >
     </div>
-      <div class="col-xs-4">
-      <label for="intervalle">Largeur de l'intervalle</label>
+    <div class="col-xs-4">
+      <br>
+      <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle_Cout" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div>
       <div class="col-xs-4">
@@ -42,8 +43,9 @@
 
   <div class="col-md-4">
   <div class="row">
-      <div class="col-xs-4">
-      <label for="chargeGivenCharge">Input cost(€)</label>
+    <div class="col-xs-4">
+      <br>
+      <label for="chargeGivenCharge">Input cost (€)</label>
       <input class="form-control" id="chargeGivenCharge_Cout" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
       <div class="col-xs-4">
@@ -72,8 +74,9 @@
         <span class="glyphicon glyphicon-arrow-right"></span>
       </button>
     </div>
-      <div class="col-xs-4">
-      <label for="chargeGivenProbability">Output cost(€)</label>
+    <div class="col-xs-4">
+      <br>
+      <label for="chargeGivenProbability">Output cost (€)</label>
       <output class="form-control" id="chargeGivenProbability_Cout" type="text" name="chargeGivenProbability" />
     </div>
   </div>

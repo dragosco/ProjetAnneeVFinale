@@ -27,6 +27,7 @@
       <input class="form-control" id="iteration_Marge" type="text" name="iteration_Marge" value=<?php echo $iteration; ?> required >
     </div>
     <div class="col-xs-4">
+      <br>
       <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle_Marge" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div>
@@ -43,6 +44,7 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-xs-4">
+      <br>
       <label for="chargeGivenCharge">Input margin (€)</label>
       <input class="form-control" id="chargeGivenCharge_Marge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
@@ -86,6 +88,7 @@
       <input class="form-control" id="cout" type="text" name="probabiliteGivenProbability" value=""/>
     </div>
     <div class="col-xs-6 col-sm-3">
+      <br>
       <label for="chargeGivenProbability">Gain (€)</label>
       <input class="form-control" id="prixvendu" type="text" name="probabiliteGivenProbability" value=""/>
     </div>
@@ -95,6 +98,7 @@
     </button>
     </div>
     <div class="col-xs-6 col-sm-3">
+      <br>
       <label for="margeFinanciere">Result</label>
       <p id="margeFinanciere" name="margeFinanciere"></p>
     </div>
@@ -111,6 +115,6 @@ function marge()
       var cout = document.getElementById("cout").value;
       var prixvendu = document.getElementById("prixvendu").value;
       var margeFinanciere = ((prixvendu*1)-(cout*1))/((prixvendu*1));
-      document.getElementById("margeFinanciere").innerHTML = "Marge financière : "+margeFinanciere.toFixed(2)*100+" %";
+      document.getElementById("margeFinanciere").innerHTML = "Financial margin : "+margeFinanciere.toFixed(2)*100+" %";
 }
 </script>

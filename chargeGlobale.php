@@ -29,7 +29,8 @@
       <input class="form-control" id="iteration" type="text" name="iteration" value=<?php echo $iteration; ?> required >
     </div></div>
       <div class="col-xs-4">
-  <div class="form-group">
+    <div class="form-group">
+      <br>
       <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div></div>
@@ -52,7 +53,7 @@
 
   <div class="row">
   <div class="col-xs-4">
-      <label for="chargeGivenCharge">Input burden (d.h)</label>
+      <label for="chargeGivenCharge">Input burden (d.m)</label>
       <input class="form-control" id="chargeGivenCharge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
   <div class="col-xs-4">
@@ -89,7 +90,7 @@
       <div class="col-xs-4">
 
     <div class="form-group">
-      <label for="chargeGivenProbability">Output burden (d.h)</label>
+      <label for="chargeGivenProbability">Output burden (d.m)</label>
       <output class="form-control" id="chargeGivenProbability_Charge" type="text" name="chargeGivenProbability" />
     </div>
   </div>
