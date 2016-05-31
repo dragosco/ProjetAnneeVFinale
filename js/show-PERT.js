@@ -61,6 +61,7 @@ $(document).ready(function() {
     var start = getCellByText('Start');
     var end = getCellByText('End');
 
+    $('.message-boucle').hide();
     $('#enlargePaperWidthButton').click(function() {
         paper.setDimensions(paper.options.width + 100, paper.options.height);
         bounds.resize(paper.options.width + 100, paper.options.height);

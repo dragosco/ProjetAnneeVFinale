@@ -221,6 +221,9 @@ function reorganizeGraphPositions() {
         }
     }
 
+    if(timeout === 0) {
+        $('.message-boucle').show();
+    }
     var longestPath = calculateLongestPath(start);
 
     // console.log("listElements " + listElements);

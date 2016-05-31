@@ -32,6 +32,7 @@ if(!isset($_SESSION['email'])){
 		<div class="col-lg-12">
 			<div class="row">
 				<h1 class="page-header">PERT Chart</h1>
+				<p class="message-boucle" style="color:darkred;">Error, cycle detected in the overall schema </p>
 				<p id="waitForDiagram" class="saving">Loading Diagram <span>.</span><span>.</span><span>.</span></p>
 				<button class="btn btn-default pull-right" type="button" id="enlargePaperWidthButton">Enlarge paper's width</button>
 				<button class="btn btn-default pull-right" type="button" id="enlargePaperHeightButton">Enlarge paper's height</button>
