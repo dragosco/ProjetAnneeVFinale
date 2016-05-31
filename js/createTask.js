@@ -132,11 +132,13 @@ function reorganizeGraphPositions() {
     var listElements = [];
     var qtdElements = [];
     var level = 0;
+    var timeout = 1000;
 
     queue.push({element : start, level : level});
     // qtdElements.push({level : 0, qtd : 1});
 
-    while(queue.length > 0) {
+    while(queue.length > 0 && timeout > 0) {
+        timeout -=1;
         var current = queue.shift();
         var links = getLinksFromSource(current.element);
         for (var i = 0; i < links.length; i++) {
