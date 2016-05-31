@@ -14,7 +14,7 @@
 
 <div class="form-group">
   <button id="titreChargeGlobale" class="btn btn-default btn-block" type="button">
-    Charge globale
+      Overall burden
   </button>
 </div>
 <div id="contenuChargeGlobale" class="contenu">
@@ -25,12 +25,12 @@
       <div class="col-xs-4">
     <input type="hidden" id="typeSimulateur" name="typeSimulateur" value="chargeGlobale" />
   <div class="form-group">
-      <label for="iteration">Nombre d'itération</label>
+      <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration" type="text" name="iteration" value=<?php echo $iteration; ?> required >
     </div></div>
       <div class="col-xs-4">
   <div class="form-group">
-      <label for="intervalle">Largeur de l'intervalle</label>
+      <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div></div>
       <div class="col-xs-4">
@@ -52,7 +52,7 @@
 
   <div class="row">
   <div class="col-xs-4">
-      <label for="chargeGivenCharge">Charge d'entrée (j.h)</label>
+      <label for="chargeGivenCharge">Input burden (d.h)</label>
       <input class="form-control" id="chargeGivenCharge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
   <div class="col-xs-4">
@@ -64,7 +64,7 @@
       <!-- </form> -->
     </div>
   <div class="col-xs-4">
-      <label for="probabiliteGivenCharge">Probabilité calculée (%)</label>
+      <label for="probabiliteGivenCharge">Output probability (%)</label>
       <output class="form-control" id="probabiliteGivenCharge_Charge" type="text" name="probabiliteGivenCharge" />
     </div>
   </div>
@@ -75,7 +75,7 @@
   <div class="row">
   <div class="col-xs-4">
   <div class="form-group">
-      <label for="probabiliteGivenProbability">Probabilité d'entrée (%)</label>
+      <label for="probabiliteGivenProbability">Input probability (%)</label>
       <input class="form-control" id="probabiliteGivenProbability" type="text" name="probabiliteGivenProbability" value=<?php echo $probabilite; ?> />
     </div>
   </div>
@@ -89,7 +89,7 @@
       <div class="col-xs-4">
 
     <div class="form-group">
-      <label for="chargeGivenProbability">Charge calculée (j.h)</label>
+      <label for="chargeGivenProbability">Output burden (d.h)</label>
       <output class="form-control" id="chargeGivenProbability_Charge" type="text" name="chargeGivenProbability" />
     </div>
   </div>

@@ -14,7 +14,7 @@
 
 <div class="form-group">
   <button id="titre_Marge" class="btn btn-default btn-block" type="button">
-    Marge Financière
+    Financial margin
   </button>
 </div>
 <div id="contenu_Marge" class="contenu">
@@ -23,11 +23,11 @@
   <div class="row">
     <input type="hidden" id="typeSimulateur_Marge" name="typeSimulateur" value="margeFinanciere" />
     <div class="col-xs-4">
-      <label for="iteration">Nombre d'itération</label>
+      <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Marge" type="text" name="iteration_Marge" value=<?php echo $iteration; ?> required >
     </div>
     <div class="col-xs-4">
-      <label for="intervalle">Largeur de l'intervalle</label>
+      <label for="intervalle">Gap width</label>
       <input class="form-control" id="intervalle_Marge" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div>
     <div class="col-xs-4">
@@ -43,7 +43,7 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-xs-4">
-      <label for="chargeGivenCharge">Marge d'entrée<br>(€)</label>
+      <label for="chargeGivenCharge">Input margin (€)</label>
       <input class="form-control" id="chargeGivenCharge_Marge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
     <div class="col-xs-4">
@@ -54,7 +54,7 @@
       <!-- </form> -->
     </div>
     <div class="col-xs-4">
-      <label for="probabiliteGivenCharge">Probabilité calculée (%)</label>
+      <label for="probabiliteGivenCharge">Output probability (%)</label>
       <output class="form-control" id="probabiliteGivenCharge_Marge" type="text" name="probabiliteGivenCharge" />
     </div>
   </div>
@@ -63,7 +63,7 @@
 <div class="col-md-4">
   <div class="row">
     <div class="col-xs-4">
-      <label for="probabiliteGivenProbability">Probabilité d'entrée (%)</label>
+      <label for="probabiliteGivenProbability">Input probability (%)</label>
       <input class="form-control" id="probabiliteGivenProbability_Marge" type="text" name="probabiliteGivenProbability" value=<?php echo $probabilite; ?> />
     </div>
     <div class="col-xs-4">
@@ -72,7 +72,7 @@
       </button>
     </div>
     <div class="col-xs-4">
-      <label for="chargeGivenProbability">Marge calculée<br>(€)</label>
+      <label for="chargeGivenProbability">Output margin (€)</label>
       <output class="form-control" id="chargeGivenProbability_Marge" type="text" name="chargeGivenProbability" />
     </div>
   </div>
@@ -82,11 +82,11 @@
   <div class="row">
 
     <div class="col-xs-6 col-sm-3">
-      <label for="probabiliteGivenProbability">Le coût d'entrée</label>
+      <label for="probabiliteGivenProbability">Project cost</label>
       <input class="form-control" id="cout" type="text" name="probabiliteGivenProbability" value=""/>
     </div>
     <div class="col-xs-6 col-sm-3">
-      <label for="chargeGivenProbability">Prix vendu en (€)</label>
+      <label for="chargeGivenProbability">Gain (€)</label>
       <input class="form-control" id="prixvendu" type="text" name="probabiliteGivenProbability" value=""/>
     </div>
     <div class="col-xs-6 col-sm-3">
@@ -95,7 +95,7 @@
     </button>
     </div>
     <div class="col-xs-6 col-sm-3">
-      <label for="margeFinanciere">Résultat calculé</label>
+      <label for="margeFinanciere">Result</label>
       <p id="margeFinanciere" name="margeFinanciere"></p>
     </div>
   </div>

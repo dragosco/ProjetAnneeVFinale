@@ -26,15 +26,14 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
 
   var nomChart = '';
   if(typeSimulateur=='chargeGlobale') {
-    nomChart = 'Simulation de charge globale';
+    nomChart = 'Overall burden simulation';
   } else if(typeSimulateur=='coutGlobal') {
-    nomChart = 'Simulation de coût global';
+    nomChart = 'Overall cost simulation';
   } else if(typeSimulateur=='dureeGlobale') {
-    nomChart = 'Simulation de durée globale';
+    nomChart = 'Overall duration simulation';
   } else if(typeSimulateur=='margeFinanciere') {
-    nomChart = 'Simulation de marge financière';
+    nomChart = 'Finencial margin simulation';
   }
-  $('#waitForGraph').show();
 
   $.ajax({
       type: 'POST',
@@ -45,7 +44,6 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
         xAxis = data.xAxis;
         yAxis = data.yAxis;
 
-        $('#waitForGraph').hide();
         $('#'+divId).highcharts({
           chart: {
             type: 'line'
@@ -73,7 +71,7 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
               }
           },
           series: [{
-              name: 'Pourcentage par catégorie',
+              name: 'Category proportion',
               data: yAxis
           }]
         });

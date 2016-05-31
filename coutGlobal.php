@@ -14,7 +14,7 @@
 
 <div class="form-group">
   <button id="titreCoutGlobal" class="btn btn-default btn-block" type="button">
-    Coût global
+    Overall cost
   </button>
 </div>
 <div id="contenuCoutGlobal" class="contenu">
@@ -23,7 +23,7 @@
   <div class="row">
     <input type="hidden" id="typeSimulateur_Cout" name="typeSimulateur" value="coutGlobal" />
       <div class="col-xs-4">
-      <label for="iteration">Nombre d'itération</label>
+      <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Cout" type="text" name="iterationCoutGlobal" value=<?php echo $iteration; ?> required >
     </div>
       <div class="col-xs-4">
@@ -43,7 +43,7 @@
   <div class="col-md-4">
   <div class="row">
       <div class="col-xs-4">
-      <label for="chargeGivenCharge">Coût d'entrée<br>(€)</label>
+      <label for="chargeGivenCharge">Input cost(€)</label>
       <input class="form-control" id="chargeGivenCharge_Cout" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
       <div class="col-xs-4">
@@ -54,7 +54,7 @@
       <!-- </form> -->
     </div>
       <div class="col-xs-4">
-      <label for="probabiliteGivenCharge">Probabilité calculée (%)</label>
+      <label for="probabiliteGivenCharge">Output probability (%)</label>
       <output class="form-control" id="probabiliteGivenCharge_Cout" type="text" name="probabiliteGivenCharge" />
     </div>
   </div>
@@ -64,7 +64,7 @@
   <div class="col-md-4">
   <div class="row">
       <div class="col-xs-4">
-      <label for="probabiliteGivenProbability">Probabilité d'entrée (%)</label>
+      <label for="probabiliteGivenProbability">Input probability (%)</label>
       <input class="form-control" id="probabiliteGivenProbability_Cout" type="text" name="probabiliteGivenProbability" value=<?php echo $probabilite; ?> />
     </div>
       <div class="col-xs-4">
@@ -73,7 +73,7 @@
       </button>
     </div>
       <div class="col-xs-4">
-      <label for="chargeGivenProbability">Coût calculé<br>(€)</label>
+      <label for="chargeGivenProbability">Output cost(€)</label>
       <output class="form-control" id="chargeGivenProbability_Cout" type="text" name="chargeGivenProbability" />
     </div>
   </div>

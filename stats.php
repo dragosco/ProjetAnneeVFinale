@@ -36,7 +36,7 @@ if(!isset($_SESSION['email'])){
 		<div class="row main">
 		  <div class="row">
 		    <div class="col-lg-12">
-		      <h1 class="page-header">Statistiques</h1>
+		      <h1 class="page-header">Statistics</h1>
 		    </div>
 		  </div><!--/.row-->
 
