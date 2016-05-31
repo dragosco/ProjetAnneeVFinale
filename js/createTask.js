@@ -140,7 +140,7 @@ function reorganizeGraphPositions() {
         var current = queue.shift();
         var links = getLinksFromSource(current.element);
         for (var i = 0; i < links.length; i++) {
-            console.log(links[i].getTargetElement() !== getCellByText("End"));
+            // console.log(links[i].getTargetElement() !== getCellByText("End"));
             if (links[i].getTargetElement() !== getCellByText("End")) {
                 queue.push({element: links[i].getTargetElement(), level: current.level + 1});
             }
@@ -153,8 +153,28 @@ function reorganizeGraphPositions() {
                     && listElements[j].element === links[i].getTargetElement()
                     && listElements[j].level <= current.level + 1)
                 {
+                    var oldLevel = listElements[j].level;
                     listElements[j].level = current.level + 1;
                     isElementFound = true;
+
+                    isElementFoundQtd = false;
+                    isElementFoundQtd2 = false;
+                    for (var j = 0; j < qtdElements.length && !isElementFoundQtd; j++) {
+                      if(qtdElements[j].level === oldLevel) { // && qtdElements[j].qtd > 1
+                        qtdElements[j].qtd = qtdElements[j].qtd - 1;
+                        isElementFoundQtd = true;
+                        for (var k = 0; k < qtdElements.length && !isElementFoundQtd2; k++) {
+                          if(qtdElements[k].level === current.level + 1) {
+                            qtdElements[k].qtd = qtdElements[k].qtd + 1;
+                            isElementFoundQtd2 = true;
+                          }
+                        }
+                      }
+                    }
+                    // if(!isElementFoundQtd2) {
+                    //   alert("entrou");
+                    //   qtdElements.push({level: current.level + 1, qtd : 1});
+                    // }
 
                     // isElementFoundQtd = false;
                     // for (var j = 0; j < qtdElements.length && !isElementFoundQtd; j++) {
@@ -168,20 +188,22 @@ function reorganizeGraphPositions() {
                     // }
                 }
             }
-            if(!isElementFound && links[i].getTargetElement() !== getCellByText("End")) {
+            if(!isElementFound) {
+              if(links[i].getTargetElement() !== getCellByText("End")) {
                 listElements.push({element : links[i].getTargetElement(), level : current.level + 1});
                 // qtdElements.push({level: current.level + 1, qtd : 1});
+              }
 
-                isElementFoundQtd = false;
-                for (var j = 0; j < qtdElements.length && !isElementFoundQtd; j++) {
-                    if(qtdElements[j].level === current.level + 1) {
-                        qtdElements[j].qtd = qtdElements[j].qtd + 1;
-                        isElementFoundQtd = true;
-                    }
-                }
-                if(!isElementFoundQtd) {
-                    qtdElements.push({level: current.level + 1, qtd : 1});
-                }
+              isElementFoundQtd = false;
+              for (var j = 0; j < qtdElements.length && !isElementFoundQtd; j++) {
+                  if(qtdElements[j].level === current.level + 1) {
+                      qtdElements[j].qtd = qtdElements[j].qtd + 1;
+                      isElementFoundQtd = true;
+                  }
+              }
+              if(!isElementFoundQtd) {
+                  qtdElements.push({level: current.level + 1, qtd : 1});
+              }
             }
 
             // isElementFound = false;
@@ -194,7 +216,7 @@ function reorganizeGraphPositions() {
             // if(!isElementFound) {
             //     qtdElements.push({level: current.level + 1, qtd : 1});
             // }
-        };
+        }
     }
 
     var longestPath = calculateLongestPath(start);
@@ -247,6 +269,7 @@ function updateElementsPositions(listElements, qtdElements, longestPath) {
     // alert(JSON.stringify(qtdElements, null, 4));
     for (var i = 0; i < qtdElements.length; i++) {
         var level = qtdElements[i].level;
+        // alert("level : " + level);
         var qtd = qtdElements[i].qtd;
         var sameLevelElements = findAllElementsByLevel(listElements, level);
         // var qtd = sameLevelElements.length;
@@ -261,10 +284,10 @@ function updateElementsPositions(listElements, qtdElements, longestPath) {
 
           if(qtd % 2 === 0) {
             element.set('position', {x: xDistBetweenElements*level, y: (yInitialPosition + j*yDistBetweenElements)});//(3*j/2)*(yDistBetweenElements - elementHeight)*2)}); // - elementHeight/2
-            // alert(yInitialPosition + (3*j/2)*yDistBetweenElements - elementHeight/2);
+            // alert("pair " + yInitialPosition + j*yDistBetweenElements);
           } else {
             element.set('position', {x: xDistBetweenElements*level, y: (yInitialPosition + j*yDistBetweenElements)});
-            // alert(yInitialPosition);
+            // alert("impair " + yInitialPosition + j*yDistBetweenElements);
             // alert(j*yDistBetweenElements);
           }
           //taskRect.set('position', {x: 0, y: 0});

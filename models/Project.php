@@ -20,6 +20,7 @@ class Project
 	var $listeParallelPaths;
 	var $listeSimulateurs;
 	var $bdd;
+	var $listeVisited;
 
 	private static $_instance = null;
 
@@ -432,6 +433,12 @@ class Project
 	//--------------------------------------------------------------------
 	function getParallelPaths() {
     $start = $this->getTaskById($this->tacheDebut->id);
+		$this->listeVisited = array();
+
+		foreach ($this->listeTaches as $tache) {
+			$this->listeVisited[$tache->id] = 0;
+		}
+
     $allPathsFromStartToEnd = $this->getAllPathsFromStartToEnd($start);
 
     return $allPathsFromStartToEnd;
@@ -442,24 +449,28 @@ class Project
     $resultList = array();
     $afterList = array();
 
-    if (count($task->successeurs) == 0) {
-      array_push($afterList, $task);
-      array_push($resultList, $afterList);
-      return $resultList;
-    } else {
-      for ($i=0; $i < count($task->successeurs); $i++) {
-        $id = $task->successeurs[$i]->id;
-        $nextTask = $this->getTaskById($id);
-        $partialList = $this->getAllPathsFromStartToEnd($nextTask);
-        while(count($partialList) > 0) {
-          $firstElementList = array_shift($partialList);
-          array_unshift($firstElementList, $task);
-          array_push($resultList, $firstElementList);
-        }
-      }
+		if($task->id == $this->tacheDebut->id || $this->listeVisited[$task->id] < count($task->predecesseurs)) {
+			$this->listeVisited[$task->id] += 1;
 
-      return $resultList;
-    }
+	    if (count($task->successeurs) == 0) {
+	      array_push($afterList, $task);
+	      array_push($resultList, $afterList);
+	      return $resultList;
+	    } else {
+	      for ($i=0; $i < count($task->successeurs); $i++) {
+	        $id = $task->successeurs[$i]->id;
+	        $nextTask = $this->getTaskById($id);
+	        $partialList = $this->getAllPathsFromStartToEnd($nextTask);
+	        while(count($partialList) > 0) {
+	          $firstElementList = array_shift($partialList);
+	          array_unshift($firstElementList, $task);
+	          array_push($resultList, $firstElementList);
+	        }
+	      }
+			}
+		}
+
+    return $resultList;
   }
 
   function getTaskById($id) {
