@@ -1,5 +1,5 @@
 <?php
-  $simulateur = $project->getSimulateurByType('coutGlobal');
+  $simulateur = $project->getSimulateurByType(SimulateurEnum::CoutGlobal);
   $iteration = 10000;
   $intervalle = 200;
   $probabilite = 80;
@@ -13,15 +13,15 @@
  ?>
 
 <div class="form-group">
-  <button id="titreCoutGlobal" class="btn btn-default btn-block" type="button">
+  <button id="titre_Cout" class="btn btn-default btn-block" type="button">
     Overall cost
   </button>
 </div>
-<div id="contenuCoutGlobal" class="contenu">
+<div id="contenu_Cout" class="contenu">
   <!-- <br> -->
   <div class="col-md-4">
   <div class="row">
-    <input type="hidden" id="typeSimulateur_Cout" name="typeSimulateur" value="coutGlobal" />
+    <input type="hidden" id="typeSimulateur_Cout" name="typeSimulateur" value=<?php echo SimulateurEnum::CoutGlobal; ?> />
       <div class="col-xs-4">
       <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Cout" type="text" name="iterationCoutGlobal" value=<?php echo $iteration; ?> required >
@@ -33,7 +33,7 @@
     </div>
       <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
-        <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Cout.value, iteration_Cout.value, intervalle_Cout.value, probabiliteGivenProbability_Cout.value, chargeGivenCharge_Cout.value, 'containerCoutGlobal')">
+        <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Cout.value, iteration_Cout.value, intervalle_Cout.value, probabiliteGivenProbability_Cout.value, chargeGivenCharge_Cout.value, 'container_Cout')">
           <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
@@ -81,6 +81,6 @@
     </div>
   </div>
 </div>
-  <div id="containerCoutGlobal"></div>
+  <div id="container_Cout"></div>
    <!-- style="height: 400px; width: 100%;" -->
 </div>

@@ -1,5 +1,5 @@
 <?php
-  $simulateur = $project->getSimulateurByType('dureeGlobale');
+  $simulateur = $project->getSimulateurByType(SimulateurEnum::DureeGlobale);
   $iteration = 10000;
   $intervalle = 5;
   $probabilite = 80;
@@ -13,15 +13,15 @@
  ?>
 
 <div class="form-group">
-  <button id="titreDureeGlobale" class="btn btn-default btn-block" type="button">
+  <button id="titre_Duree" class="btn btn-default btn-block" type="button">
     Overall duration
   </button>
 </div>
-<div id="contenuDureeGlobale" class="contenu">
+<div id="contenu_Duree" class="contenu">
   <!-- <br> -->
   <div class="col-md-4">
   <div class="row">
-    <input type="hidden" id="typeSimulateur_Duree" name="typeSimulateur" value="dureeGlobale" />
+    <input type="hidden" id="typeSimulateur_Duree" name="typeSimulateur" value=<?php echo SimulateurEnum::DureeGlobale; ?> />
       <div class="col-xs-4">
       <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Duree" type="text" name="iterationDureeGlobale" value=<?php echo $iteration; ?> required >
@@ -33,7 +33,7 @@
     </div>
       <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
-        <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Duree.value, iteration_Duree.value, intervalle_Duree.value, probabiliteGivenProbability_Duree.value, chargeGivenCharge_Duree.value, 'containerDureeGlobale')">
+        <br><br><button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Duree.value, iteration_Duree.value, intervalle_Duree.value, probabiliteGivenProbability_Duree.value, chargeGivenCharge_Duree.value, 'container_Duree')">
           <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
@@ -79,6 +79,6 @@
     </div>
   </div>
 </div>
-  <div id="containerDureeGlobale"></div>
+  <div id="container_Duree"></div>
    <!-- style="height: 400px; width: 100%;" -->
 </div>

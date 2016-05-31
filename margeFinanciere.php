@@ -1,5 +1,5 @@
 <?php
-  $simulateur = $project->getSimulateurByType('margeFinanciere');
+  $simulateur = $project->getSimulateurByType(SimulateurEnum::MargeFinanciere);
   $iteration = 10000;
   $intervalle = 2000;
   $probabilite = 80;
@@ -21,7 +21,7 @@
   <!-- <br> -->
   <div class="col-md-4">
   <div class="row">
-    <input type="hidden" id="typeSimulateur_Marge" name="typeSimulateur" value="margeFinanciere" />
+    <input type="hidden" id="typeSimulateur_Marge" name="typeSimulateur" value=<?php echo SimulateurEnum::MargeFinanciere; ?> />
     <div class="col-xs-4">
       <label for="iteration">Number of iterations</label>
       <input class="form-control" id="iteration_Marge" type="text" name="iteration_Marge" value=<?php echo $iteration; ?> required >

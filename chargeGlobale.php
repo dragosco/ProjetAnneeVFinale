@@ -1,5 +1,5 @@
 <?php
-  $simulateur = $project->getSimulateurByType('chargeGlobale');
+  $simulateur = $project->getSimulateurByType(SimulateurEnum::ChargeGlobale);
   $iteration = 10000;
   $intervalle = 5;
   $probabilite = 80;
@@ -13,33 +13,33 @@
  ?>
 
 <div class="form-group">
-  <button id="titreChargeGlobale" class="btn btn-default btn-block" type="button">
+  <button id="titre_Charge" class="btn btn-default btn-block" type="button">
       Overall burden
   </button>
 </div>
-<div id="contenuChargeGlobale" class="contenu">
+<div id="contenu_Charge" class="contenu">
   <!-- <br> -->
   <div class="col-md-4">
 
   <div class="row">
       <div class="col-xs-4">
-    <input type="hidden" id="typeSimulateur" name="typeSimulateur" value="chargeGlobale" />
+    <input type="hidden" id="typeSimulateur_Charge" name="typeSimulateur" value=<?php echo SimulateurEnum::ChargeGlobale; ?> />
   <div class="form-group">
       <label for="iteration">Number of iterations</label>
-      <input class="form-control" id="iteration" type="text" name="iteration" value=<?php echo $iteration; ?> required >
+      <input class="form-control" id="iteration_Charge" type="text" name="iteration" value=<?php echo $iteration; ?> required >
     </div></div>
       <div class="col-xs-4">
     <div class="form-group">
       <br>
       <label for="intervalle">Gap width</label>
-      <input class="form-control" id="intervalle" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
+      <input class="form-control" id="intervalle_Charge" type="text" name="intervalle" value=<?php echo $intervalle; ?> required >
     </div></div>
       <div class="col-xs-4">
 
   <div class="form-group">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br>
-        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value, 'containerChargeGlobale')">
+        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="calculate(typeSimulateur_Charge.value, iteration_Charge.value, intervalle_Charge.value, probabiliteGivenProbability_Charge.value, chargeGivenCharge_Charge.value, 'container_Charge')">
           <span class="glyphicon glyphicon-stats"></span>
         </button>
       <!-- </form> -->
@@ -54,12 +54,12 @@
   <div class="row">
   <div class="col-xs-4">
       <label for="chargeGivenCharge">Input burden (d.m)</label>
-      <input class="form-control" id="chargeGivenCharge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
+      <input class="form-control" id="chargeGivenCharge_Charge" type="text" name="chargeGivenCharge" value=<?php echo $charge; ?> />
     </div>
   <div class="col-xs-4">
       <!-- <form methode ="POST" action ="traitement.php"> -->
         <br><br>
-        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateProbability(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value)">
+        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateProbability(typeSimulateur_Charge.value, iteration_Charge.value, intervalle_Charge.value, probabiliteGivenProbability_Charge.value, chargeGivenCharge_Charge.value)">
           <span class="glyphicon glyphicon-arrow-right"></span>
         </button>
       <!-- </form> -->
@@ -77,13 +77,13 @@
   <div class="col-xs-4">
   <div class="form-group">
       <label for="probabiliteGivenProbability">Input probability (%)</label>
-      <input class="form-control" id="probabiliteGivenProbability" type="text" name="probabiliteGivenProbability" value=<?php echo $probabilite; ?> />
+      <input class="form-control" id="probabiliteGivenProbability_Charge" type="text" name="probabiliteGivenProbability" value=<?php echo $probabilite; ?> />
     </div>
   </div>
     <div class="col-xs-4">
   <div class="form-group">
       <br><br>
-        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateCharge(typeSimulateur.value, iteration.value, intervalle.value, probabiliteGivenProbability.value, chargeGivenCharge.value)">
+        <button class="btn btn-default btn-block btn-lg" type="submit" onclick="estimateCharge(typeSimulateur_Charge.value, iteration_Charge.value, intervalle_Charge.value, probabiliteGivenProbability_Charge.value, chargeGivenCharge_Charge.value)">
         <span class="glyphicon glyphicon-arrow-right"></span>
       </button>
     </div></div>
@@ -96,6 +96,6 @@
   </div>
 </div>
 </div>
-  <div id="containerChargeGlobale"></div>
+  <div id="container_Charge"></div>
    <!-- style="height: 400px; width: 100%;" -->
    </div>

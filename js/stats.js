@@ -1,22 +1,21 @@
 $(document).ready(function() {
-  $('#contenuChargeGlobale').hide();
-  $('#contenuCoutGlobal').hide();
-  $('#contenuDureeGlobale').hide();
+  $('#contenu_Charge').hide();
+  $('#contenu_Cout').hide();
+  $('#contenu_Duree').hide();
   $('#contenu_Marge').hide();
 
-  $('#titreChargeGlobale').on('click', function(event) {
-    $('#contenuChargeGlobale').slideToggle();
+  $('#titre_Charge').on('click', function(event) {
+    $('#contenu_Charge').slideToggle();
   });
-  $('#titreCoutGlobal').on('click', function(event) {
-    $('#contenuCoutGlobal').slideToggle();
+  $('#titre_Cout').on('click', function(event) {
+    $('#contenu_Cout').slideToggle();
   });
-  $('#titreDureeGlobale').on('click', function(event) {
-    $('#contenuDureeGlobale').slideToggle();
+  $('#titre_Duree').on('click', function(event) {
+    $('#contenu_Duree').slideToggle();
   });
   $('#titre_Marge').on('click', function(event) {
     $('#contenu_Marge').slideToggle();
   });
-  $('#waitForGraph').hide();
 });
 
 //fonction qui dessine le graphique correspondant au type de simulateur passé par paramètre
@@ -32,7 +31,7 @@ function calculate(typeSimulateur, iteration, intervalle, probabilite, charge, d
   } else if(typeSimulateur=='dureeGlobale') {
     nomChart = 'Overall duration simulation';
   } else if(typeSimulateur=='margeFinanciere') {
-    nomChart = 'Finencial margin simulation';
+    nomChart = 'Financial margin simulation';
   }
 
   $.ajax({
